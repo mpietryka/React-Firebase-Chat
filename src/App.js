@@ -1,9 +1,7 @@
-import './App.css';
+import { Login } from "./containers";
 
 function App() {
-  return (
-    <p>Soon to be a login form</p>
-    );
+  return <Login />;
 }
 
 export default App;
