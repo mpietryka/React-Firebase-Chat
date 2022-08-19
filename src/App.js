@@ -1,7 +1,11 @@
 import { Login } from "./containers";
 
-function App() {
-  return <Login />;
-}
+const App = () => {
+  return (
+    <>
+      <Login />
+    </>
+  );
+};
 
 export default App;
