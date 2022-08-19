@@ -12,7 +12,7 @@ export const Login = () => {
           <input
             type="text"
             placeholder="Username"
-            class="w-full h-5 px-3 py-5 mt-2 rounded-md border border-gray-400 hover:outline-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition ease-in-out"
+            className="w-full h-5 px-3 py-5 mt-2 rounded-md border border-gray-400 hover:outline-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition ease-in-out"
           />
           <label className="block mt-5">Password:</label>
           <input
@@ -21,8 +21,7 @@ export const Login = () => {
             class="w-full h-5 px-3 py-5 mt-2 rounded-md border border-gray-400 hover:outline-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition ease-in-out"
           />
           <div className=" mt-5 flex justify-between items-center">
-            <a
-              href="register"
+            <a href="register"
               className="w-full text-center px-4 py-3 bg-blue-500 rounded-md opacity-90 hover:opacity-100 transition-opacity text-white "
             >
               Sign-in
@@ -30,8 +29,7 @@ export const Login = () => {
           </div>
           <p className=" mt-5 flex justify-between font-light">
             Don't have an account?
-            <a
-              href="register"
+            <a href="register"
               className=" text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
             >
               Register
