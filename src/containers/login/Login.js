@@ -22,9 +22,9 @@ export const Login = () => {
           />
           <div className=" mt-5 flex justify-between items-center">
             <a href="register"
-              className="w-full text-center px-4 py-3 bg-blue-500 rounded-md opacity-90 hover:opacity-100 transition-opacity text-white "
+              className="w-full text-center px-4 py-3 bg-blue-500 rounded-md opacity-90 hover:opacity-100 transition-opacity text-white"
             >
-              Sign-in
+              <span className="font-semibold">SIGN-IN</span>
             </a>
           </div>
           <p className=" mt-5 flex justify-between font-light">
