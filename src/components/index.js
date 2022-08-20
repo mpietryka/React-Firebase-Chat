@@ -1,7 +1,10 @@
 export { ErrorMsg } from "./errorMsg/ErrorMsg";
 export { Heading } from "./heading/Heading";
+export { Heading2 } from "./heading2/Heading2";
 export { ShadowBox } from "./shadowBox/ShadowBox";
 export { Btn } from "./btn/Btn";
 export { MainContainer } from "./mainContainer/MainContainer";
 export { Link } from "./link/Link";
-export { Grid2cols } from "./grid2cols/Grid2cols"
+export { Grid2cols } from "./grid2cols/Grid2cols";
+export { Centered } from "./centered/Centered";
+export { Avatar } from "./avatar/Avatar"

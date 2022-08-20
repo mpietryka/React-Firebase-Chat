@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { Textfield } from "./Textfield";
 import * as Yup from "yup";
-import { Heading, ShadowBox, Btn, MainContainer, Link } from "../../components";
+import { Heading, ShadowBox, Btn, MainContainer, Link, Centered } from "../../components";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
 
@@ -19,22 +19,26 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({
-      username: username,
-      password: password,
-      isAuthenticated: true,
-    }))
-  }
+    dispatch(
+      login({
+        username: username,
+        password: password,
+        isAuthenticated: true,
+      })
+    );
+  };
 
   return (
-    <div className="h-screen flex flex-col justify-center">
+    <Centered>
       <Heading>LOG IN TO YOUR ACCOUNT</Heading>
       <MainContainer>
         <ShadowBox>
           <Formik
             initialValues={{
-              username: "",
-              password: "",
+              //username: "",
+              username: username,
+              //password: "",
+              password: password,
             }}
             validationSchema={validate}
           >
@@ -68,6 +72,6 @@ export const Login = () => {
           </Formik>
         </ShadowBox>
       </MainContainer>
-    </div>
+    </Centered>
   );
 };
