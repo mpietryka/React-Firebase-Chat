@@ -19,7 +19,6 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     dispatch(login({
       username: username,
       password: password,

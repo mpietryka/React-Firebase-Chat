@@ -4,3 +4,4 @@ export { ShadowBox } from "./shadowBox/ShadowBox";
 export { Btn } from "./btn/Btn";
 export { MainContainer } from "./mainContainer/MainContainer";
 export { Link } from "./link/Link";
+export { Grid2cols } from "./grid2cols/Grid2cols"
