@@ -30,12 +30,11 @@ export const Dashboard = () => {
               ></Avatar>
             </div>
             <div>
-              <p className="text-base md:text-1xl lg:text-2xl mt-5 font-semibold text-left ">
-                {user.username}
-              </p>
+              <p className="text-base md:text-xl font-normal text-left">Username:  
+              <span className="font-semibold"> {user.username}</span></p>
             </div>
           </Grid2cols>
-          <div className="md:w-1/4 mx-auto">
+          <div className="md:w-1/4 mx-auto mt-8">
             <Btn onClick={(e) => handleLogout(e)}>Log Out</Btn>
           </div>
         </ShadowBox>
