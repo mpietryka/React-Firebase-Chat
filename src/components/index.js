@@ -7,4 +7,4 @@ export { MainContainer } from "./mainContainer/MainContainer";
 export { Link } from "./link/Link";
 export { Grid2cols } from "./grid2cols/Grid2cols";
 export { Centered } from "./centered/Centered";
-export { Avatar } from "./avatar/Avatar"
+export { Avatar } from "./avatar/Avatar";

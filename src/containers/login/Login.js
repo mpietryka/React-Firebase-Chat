@@ -12,15 +12,15 @@ import {
 } from "../../components";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/userSlice";
-  
+
 export const Login = () => {
   const validate = Yup.object({
     username: Yup.string().required("Please enter your username"),
     password: Yup.string().required("Please enter your password"),
   });
- 
+
   const dispatch = useDispatch();
- 
+
   return (
     <Centered>
       <Heading>LOG IN TO YOUR ACCOUNT</Heading>
@@ -34,20 +34,20 @@ export const Login = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
-              console.log("onSubmit", values, values.isAuthenticated=true);
+              console.log("onSubmit", values);
               dispatch(
                 login({
                   username: values.username,
                   password: values.password,
                   isAuthenticated: true,
-                })
+                }
+                )
               );
             }}
           >
             <Form>
               <Textfield label="Username" name="username" type="text" />
               <Textfield label="Password" name="password" type="password" />
- 
               <Btn type="submit">
                 <span className="font-semibold">SIGN-IN</span>
               </Btn>

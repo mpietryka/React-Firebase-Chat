@@ -1,6 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Heading, Heading2, Btn, ShadowBox, Grid2cols, Centered, Avatar } from "../../components";
+import {
+  Heading,
+  Heading2,
+  Btn,
+  ShadowBox,
+  Grid2cols,
+  Centered,
+  Avatar,
+} from "../../components";
 import { logout, selectUser } from "../../features/userSlice";
 import avatar from "./generic-avatar-1.png";
 
@@ -19,8 +27,7 @@ export const Dashboard = () => {
           Welcome Back <span>{user.username}</span> !
         </Heading>
         <ShadowBox>
-          <Heading2>User Dashboard
-          </Heading2>
+          <Heading2>User Dashboard</Heading2>
           <Grid2cols>
             <div>
               <Avatar
@@ -30,8 +37,10 @@ export const Dashboard = () => {
               ></Avatar>
             </div>
             <div>
-              <p className="text-base md:text-xl font-normal text-left">Username:  
-              <span className="font-semibold"> {user.username}</span></p>
+              <p className="text-base md:text-xl font-normal text-left">
+                Username:
+                <span className="font-semibold"> {user.username}</span>
+              </p>
             </div>
           </Grid2cols>
           <div className="md:w-1/4 mx-auto mt-8">
