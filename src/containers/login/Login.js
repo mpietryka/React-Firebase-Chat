@@ -35,30 +35,40 @@ export const Login = () => {
         <ShadowBox>
           <Formik
             initialValues={{
-              //username: "",
-              username: username,
-              //password: "",
-              password: password,
+              username: "",
+              password: "",
             }}
             validationSchema={validate}
+            onSubmit={values => { 
+              console.log(values)
+            }}
           >
             {(formik) => (
+              
               <div>
-                <Form onSubmit={(e) => handleSubmit(e)}>
+                <Form 
+                onSubmit={(e) => handleSubmit(e)}
+                >
                   <Textfield
                     label="Username"
                     name="username"
                     type="text"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
+                    onChange={(e) => {setUsername(e.target.value)
+                    console.log(formik.values)
+                    console.log(e.target.value) }
+                  }
+                    />
                   <Textfield
                     label="Password"
                     name="password"
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {setPassword(e.target.value) 
+                    console.log(e.target.value)}
+                    } 
                   />
+                  
                   <Btn type="submit">
                     <span className="font-semibold">SIGN-IN</span>
                   </Btn>
