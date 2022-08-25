@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import { Textfield } from "./Textfield";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 import {
   Heading,
   ShadowBox,
@@ -9,15 +10,24 @@ import {
   MainContainer,
   Link,
   Centered,
+  Semibold,
 } from "../../components";
-import { useDispatch } from "react-redux";
-import { login } from "../../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Login as login } from "../../actions/auth";
 
 export const Login = () => {
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const validate = Yup.object({
     username: Yup.string().required("Please enter your username"),
     password: Yup.string().required("Please enter your password"),
   });
+
+  const handleSubmit = (values) => {
+    dispatch(login(values));
+    navigate("/dashboard");
+  };
 
   const dispatch = useDispatch();
 
@@ -34,26 +44,20 @@ export const Login = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
+              handleSubmit(values);
               console.log("onSubmit", values);
-              dispatch(
-                login({
-                  username: values.username,
-                  password: values.password,
-                  isAuthenticated: true,
-                }
-                )
-              );
             }}
           >
             <Form>
               <Textfield label="Username" name="username" type="text" />
               <Textfield label="Password" name="password" type="password" />
               <Btn type="submit">
-                <span className="font-semibold">SIGN-IN</span>
+                <Semibold>SIGN-IN</Semibold>
               </Btn>
+
               <p className=" mt-5 flex justify-between font-light">
                 Don't have an account?
-                <Link>Register</Link>
+                <Link href="">Register</Link>
               </p>
             </Form>
           </Formik>

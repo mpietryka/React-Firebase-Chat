@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import {
   Heading,
   Heading2,
@@ -8,46 +9,48 @@ import {
   Grid2cols,
   Centered,
   Avatar,
+  Semibold,
 } from "../../components";
-import { logout, selectUser } from "../../features/userSlice";
+import { logout, user } from "../../features/userSlice";
 import avatar from "./generic-avatar-1.png";
 
 export const Dashboard = () => {
-  const user = useSelector(selectUser);
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    navigate("/");
   };
 
   return (
     <Centered>
-      <div className="w-3/4 mx-auto mt-8">
-        <Heading>
-          Welcome Back <span>{user.username}</span> !
-        </Heading>
-        <ShadowBox>
-          <Heading2>User Dashboard</Heading2>
-          <Grid2cols>
-            <div>
-              <Avatar
-                src={avatar}
-                alt="avatar"
-                className="mx-auto rounded-full object-scale-down"
-              ></Avatar>
+      {user ? (
+        <div className="w-3/4 mx-auto mt-8">
+          <Heading>Welcome Back {user?.username} !</Heading>
+          <ShadowBox>
+            <Heading2>User Dashboard</Heading2>
+            <Grid2cols>
+              <div>
+                <Avatar src={avatar} alt="avatar"></Avatar>
+              </div>
+              <div>
+                <p className="text-base md:text-xl font-normal text-left">
+                  Username:
+                  <Semibold> {user?.username}</Semibold>
+                </p>
+              </div>
+            </Grid2cols>
+            <div className="md:w-1/4 mx-auto mt-8">
+              <Btn onClick={(e) => handleLogout(e)}>Log Out</Btn>
             </div>
-            <div>
-              <p className="text-base md:text-xl font-normal text-left">
-                Username:
-                <span className="font-semibold"> {user.username}</span>
-              </p>
-            </div>
-          </Grid2cols>
-          <div className="md:w-1/4 mx-auto mt-8">
-            <Btn onClick={(e) => handleLogout(e)}>Log Out</Btn>
-          </div>
-        </ShadowBox>
-      </div>
+          </ShadowBox>
+        </div>
+      ) : (
+        " No User found "
+      )}
     </Centered>
   );
 };

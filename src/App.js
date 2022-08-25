@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
 import { Login, Dashboard } from "./containers";
-import { selectUser } from "./features/userSlice";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const App = () => {
-  const user = useSelector(selectUser);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   return (
-    <div className=" m-0 p-0 flex flex-col h-screen">
-      {user ? <Dashboard /> : <Login />}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 };
 
