@@ -1,22 +1,25 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Textfield } from "./Textfield";
+import { Textfield } from "../textfield/Textfield";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Heading,
   ShadowBox,
   Btn,
   MainContainer,
-  Link,
   Centered,
   Semibold,
 } from "../../components";
-import { useDispatch, useSelector } from "react-redux";
-import { Login as login } from "../../actions/auth";
+import { useDispatch, 
+  //useSelector 
+} from "react-redux";
+import { Login } from "../../actions/auth";
 
-export const Login = () => {
-  const { isAuthenticated } = useSelector((state) => state.user);
+export const LoginForm = () => {
+  //const { isAuthenticated } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const validate = Yup.object({
@@ -25,11 +28,9 @@ export const Login = () => {
   });
 
   const handleSubmit = (values) => {
-    dispatch(login(values));
+    dispatch(Login(values));
     navigate("/dashboard");
   };
-
-  const dispatch = useDispatch();
 
   return (
     <Centered>
@@ -57,7 +58,7 @@ export const Login = () => {
 
               <p className=" mt-5 flex justify-between font-light">
                 Don't have an account?
-                <Link href="">Register</Link>
+                <Link to ="/register" className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity">Register</Link>
               </p>
             </Form>
           </Formik>

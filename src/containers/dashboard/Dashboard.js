@@ -11,14 +11,13 @@ import {
   Avatar,
   Semibold,
 } from "../../components";
-import { logout, user } from "../../features/userSlice";
+import { logout } from "../../features/userSlice";
 import avatar from "./generic-avatar-1.png";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch();
-
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -29,7 +28,7 @@ export const Dashboard = () => {
     <Centered>
       {user ? (
         <div className="w-3/4 mx-auto mt-8">
-          <Heading>Welcome Back {user?.username} !</Heading>
+          <Heading>Welcome Back {user.username}!</Heading>
           <ShadowBox>
             <Heading2>User Dashboard</Heading2>
             <Grid2cols>
@@ -49,7 +48,8 @@ export const Dashboard = () => {
           </ShadowBox>
         </div>
       ) : (
-        " No User found "
+        <Heading>Ooops! No User found</Heading>
+        
       )}
     </Centered>
   );
