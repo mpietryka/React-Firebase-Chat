@@ -5,7 +5,8 @@ import {Navigate} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 
 const App = () => {
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const isAuthenticated = useSelector(state => state.isAuthenticated)
+
 
   return (
     <Router>

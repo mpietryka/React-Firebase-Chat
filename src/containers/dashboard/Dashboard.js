@@ -26,7 +26,6 @@ export const Dashboard = () => {
 
   return (
     <Centered>
-      {user ? (
         <div className="w-3/4 mx-auto mt-8">
           <Heading>Welcome Back {user.username}!</Heading>
           <ShadowBox>
@@ -47,10 +46,6 @@ export const Dashboard = () => {
             </div>
           </ShadowBox>
         </div>
-      ) : (
-        <Heading>Ooops! No User found</Heading>
-        
-      )}
     </Centered>
   );
 };
