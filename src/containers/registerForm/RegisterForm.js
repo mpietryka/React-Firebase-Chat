@@ -12,12 +12,8 @@ import {
   Centered,
   Semibold,
 } from "../../components";
-//import { useDispatch, useSelector } from "react-redux";
 
 export const RegisterForm = () => {
-    //const { isAuthenticated } = useSelector((state) => state.user);
-  
-    //const dispatch = useDispatch();
     const navigate = useNavigate();
   
     const validate = Yup.object({

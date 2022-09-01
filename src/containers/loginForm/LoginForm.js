@@ -11,13 +11,10 @@ import {
   Centered,
   Semibold,
 } from "../../components";
-import { useDispatch, 
-  //useSelector 
-} from "react-redux";
+import { useDispatch } from "react-redux";
 import { Login } from "../../actions/auth";
 
-export const LoginForm = () => {
-  //const { isAuthenticated } = useSelector((state) => state.user);
+export const LoginForm = () => { 
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
