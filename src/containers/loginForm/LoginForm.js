@@ -14,8 +14,7 @@ import {
 import { useDispatch } from "react-redux";
 import { Login } from "../../actions/auth";
 
-export const LoginForm = () => { 
-
+export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -55,7 +54,12 @@ export const LoginForm = () => {
 
               <p className=" mt-5 flex justify-between font-light">
                 Don't have an account?
-                <Link to ="/register" className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity">Register</Link>
+                <Link
+                  to="/register"
+                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                >
+                  Register
+                </Link>
               </p>
             </Form>
           </Formik>
