@@ -11,17 +11,24 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={!isAuthenticated ? <LoginForm /> : <Navigate to="/" />}
+          element={!isAuthenticated ? <LoginForm /> : <Navigate to="/dashboard" />}
         />
-
         <Route
           exact
           path="/dashboard"
           element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />}
         />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/updateProfile" element={<UpdateProfile />}/>
-        <Route path="/chat" element={<Chat />} />
+        <Route
+          exact
+          path="/updateProfile"
+          element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/" />}
+        />
+        <Route
+          exact
+          path="/chat"
+          element={isAuthenticated ? <Chat /> : <Navigate to="/" />}
+        />
       </Routes>
     </Router>
   );
