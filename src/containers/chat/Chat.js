@@ -1,26 +1,15 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   Heading,
-  Btn,
   ShadowBox,
   Centered,
-  Avatar,
-  Semibold,
 } from "../../components";
-import { logout } from "../../features/userSlice";
-import avatar from "./generic-avatar-1.png";
 
-export const Dashboard = () => {
-  const navigate = useNavigate();
+export const Chat = () => {
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const handleLogout = (e) => {
-    e.preventDefault();
-    dispatch(logout());
-    navigate("/");
-  };
+
 
   return (
     <Centered>
@@ -46,14 +35,9 @@ export const Dashboard = () => {
               </div>
             </div>
             <div className="md:col-span-4">
-              <Avatar src={avatar} alt="avatar"></Avatar>
               <p className="text-base md:text-xl font-normal text-center">
-                Username:
-                <Semibold> {user?.username}</Semibold>
+                Chat here
               </p>
-              <div className="md:w-1/4 mx-auto mt-8">
-              <Btn onClick={(e) => handleLogout(e)}>Log Out</Btn>
-            </div>
             </div>
 
 
