@@ -43,6 +43,12 @@ export const RegisterForm = () => {
         return birthdate <= cutoff;
       }),
   });
+  const handleSubmit = (values) => {
+    //e.preventDefault()
+    //const user = e.target.values;
+    localStorage.setItem('user', JSON.stringify(values));
+    console.log(localStorage.getItem('user')); // i want to print it to the console
+}
 
   return (
     <Centered>
@@ -60,7 +66,7 @@ export const RegisterForm = () => {
               confirmPassword: "",
             }}
             validationSchema={validate}
-            onSubmit={(values) => {
+            onSubmit={(values) => {handleSubmit(values)
               console.log("onSubmit", values);
               navigate("/");
             }}
