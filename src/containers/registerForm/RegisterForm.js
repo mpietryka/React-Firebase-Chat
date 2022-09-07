@@ -44,10 +44,8 @@ export const RegisterForm = () => {
       }),
   });
   const handleSubmit = (values) => {
-    //e.preventDefault()
-    //const user = e.target.values;
     localStorage.setItem('user', JSON.stringify(values));
-    console.log(localStorage.getItem('user')); // i want to print it to the console
+    console.log(localStorage.getItem('user')); 
 }
 
   return (
@@ -60,7 +58,7 @@ export const RegisterForm = () => {
               firstName: "",
               lastName: "",
               username: "",
-              dob: "",
+              DOB: "",
               email: "",
               password: "",
               confirmPassword: "",
@@ -75,7 +73,7 @@ export const RegisterForm = () => {
               <Textfield label="First Name" name="firstName" type="text" />
               <Textfield label="Last Name" name="lastName" type="text" />
               <Textfield label="Username" name="username" type="text" />
-              <Datepicker label="Date of Birth" name="dob" type="date" />
+              <Datepicker label="Date of Birth" name="DOB" type="date" />
               <Textfield label="Email" name="email" type="email" />
               <Textfield label="Password" name="password" type="password" />
               <Textfield
@@ -84,7 +82,7 @@ export const RegisterForm = () => {
                 type="password"
               />
               <Btn type="submit">
-                <Semibold>SIGN-IN</Semibold>
+                <Semibold>REGISTER</Semibold>
               </Btn>
 
               <p className=" mt-5 flex justify-between font-light">
