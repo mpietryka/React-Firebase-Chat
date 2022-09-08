@@ -41,12 +41,14 @@ export const LoginForm = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
-              const user = JSON.parse(localStorage.getItem(JSON.stringify(values.username)))
-              if(values.password !== user.password){
-                alert("This password is incorrect")
-              }else{
-              handleSubmit(user);
-            }
+              const user = JSON.parse(
+                localStorage.getItem(JSON.stringify(values.username))
+              );
+              if (values.password !== user.password) {
+                alert("This password is incorrect");
+              } else {
+                handleSubmit(user);
+              }
             }}
           >
             <Form>

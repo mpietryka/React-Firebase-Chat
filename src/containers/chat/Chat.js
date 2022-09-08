@@ -1,15 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  Heading,
-  ShadowBox,
-  Centered,
-} from "../../components";
+import { Heading, ShadowBox, Centered } from "../../components";
 
 export const Chat = () => {
   const user = useSelector((state) => state.user);
-
 
   return (
     <Centered>
@@ -19,17 +14,26 @@ export const Chat = () => {
           <div className="grid md:grid-cols-5 gap-3">
             <div className="mb-4 min-h-full flex flex-row justify-left border-b-2 md:flex-col md:justify-start md:border-b-0 md:border-r-2 border-gray-200 ">
               <div className="mx-4 md:mx-0 md:mb-4">
-              <Link to="/dashboard" className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity">
+                <Link
+                  to="/dashboard"
+                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                >
                   Home
                 </Link>
               </div>
               <div className="mx-4 md:mx-0 md:mb-4">
-              <Link to="/updateProfile" className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity">
+                <Link
+                  to="/updateProfile"
+                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                >
                   Update Profile
                 </Link>
               </div>
               <div className="mx-4 md:mx-0 md:mb-4">
-              <Link to="/chat" className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity">
+                <Link
+                  to="/chat"
+                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                >
                   Chat
                 </Link>
               </div>
@@ -39,8 +43,6 @@ export const Chat = () => {
                 Chat here
               </p>
             </div>
-
-
           </div>
         </ShadowBox>
       </div>

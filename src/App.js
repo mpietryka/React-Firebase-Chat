@@ -1,4 +1,10 @@
-import { LoginForm, Dashboard, RegisterForm, UpdateProfile, Chat } from "./containers";
+import {
+  LoginForm,
+  Dashboard,
+  RegisterForm,
+  UpdateProfile,
+  Chat,
+} from "./containers";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -11,7 +17,9 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={!isAuthenticated ? <LoginForm /> : <Navigate to="/dashboard" />}
+          element={
+            !isAuthenticated ? <LoginForm /> : <Navigate to="/dashboard" />
+          }
         />
         <Route
           exact

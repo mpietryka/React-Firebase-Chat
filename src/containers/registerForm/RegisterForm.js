@@ -44,9 +44,9 @@ export const RegisterForm = () => {
       }),
   });
   const handleSubmit = (values) => {
-    const username = values.username
-      localStorage.setItem(JSON.stringify(username), JSON.stringify( values ));
-  }
+    const username = values.username;
+    localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
+  };
 
   return (
     <Centered>
@@ -65,13 +65,13 @@ export const RegisterForm = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
-              const username = values.username
-              if(localStorage.getItem(JSON.stringify(username))){
-                alert("sorry this username is in use")
-              }else{
-              handleSubmit(values)
-              console.log("onSubmit", values);
-              navigate("/");
+              const username = values.username;
+              if (localStorage.getItem(JSON.stringify(username))) {
+                alert("sorry this username is in use");
+              } else {
+                handleSubmit(values);
+                console.log("onSubmit", values);
+                navigate("/");
               }
             }}
           >
