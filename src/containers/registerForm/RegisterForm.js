@@ -44,9 +44,9 @@ export const RegisterForm = () => {
       }),
   });
   const handleSubmit = (values) => {
-    localStorage.setItem('user', JSON.stringify(values));
-    console.log(localStorage.getItem('user')); 
-}
+    const username = values.username
+      localStorage.setItem(JSON.stringify(username), JSON.stringify( values ));
+  }
 
   return (
     <Centered>
@@ -64,9 +64,15 @@ export const RegisterForm = () => {
               confirmPassword: "",
             }}
             validationSchema={validate}
-            onSubmit={(values) => {handleSubmit(values)
+            onSubmit={(values) => {
+              const username = values.username
+              if(localStorage.getItem(JSON.stringify(username))){
+                alert("sorry this username is in use")
+              }else{
+              handleSubmit(values)
               console.log("onSubmit", values);
               navigate("/");
+              }
             }}
           >
             <Form>

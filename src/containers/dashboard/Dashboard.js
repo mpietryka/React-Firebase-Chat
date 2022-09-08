@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { stringify } from "uuid";
 import {
   Heading,
   Btn,
@@ -50,6 +51,18 @@ export const Dashboard = () => {
               <p className="text-base md:text-xl font-normal text-center">
                 Username:
                 <Semibold> {user?.username}</Semibold>
+              </p>
+              <p className="text-base md:text-xl font-normal text-center">
+                First name:
+                <Semibold> {user?.firstName}</Semibold>
+              </p>
+              <p className="text-base md:text-xl font-normal text-center">
+                Last name:
+                <Semibold> {user?.lastName}</Semibold>
+              </p>
+              <p className="text-base md:text-xl font-normal text-center">
+                Email:
+                <Semibold> {user?.email}</Semibold>
               </p>
               <div className="md:w-1/4 mx-auto mt-8">
               <Btn onClick={(e) => handleLogout(e)}>Log Out</Btn>
