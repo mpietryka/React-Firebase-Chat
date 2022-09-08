@@ -44,8 +44,10 @@ export const RegisterForm = () => {
       }),
   });
   const handleSubmit = (values) => {
-    localStorage.setItem('user', JSON.stringify(values));
-    console.log(localStorage.getItem('user')); 
+    
+    let previousUser = JSON.parse(localStorage.getItem('user'))
+    localStorage.setItem('user', JSON.stringify([ previousUser, values ]));
+    console.log(localStorage.getItem('user'));
 }
 
   return (
