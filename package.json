@@ -19,6 +19,7 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
+    "sweetalert": "^2.1.2",
     "twin.macro": "^2.8.2",
     "use-debounce": "^8.0.3",
     "uuid": "^9.0.0",

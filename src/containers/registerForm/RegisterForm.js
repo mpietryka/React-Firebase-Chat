@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import { Textfield } from "../textfield/Textfield";
 import { Datepicker } from "../datepicker/Datepicker";
 import * as Yup from "yup";
+import swal from 'sweetalert';
 import { useNavigate, Link } from "react-router-dom";
 import {
   Heading,
@@ -67,7 +68,7 @@ export const RegisterForm = () => {
             onSubmit={(values) => {
               const username = values.username;
               if (localStorage.getItem(JSON.stringify(username))) {
-                alert("sorry this username is in use");
+                swal("Looks like this username is already in use", "Try another one", "warning");
               } else {
                 handleSubmit(values);
                 console.log("onSubmit", values);

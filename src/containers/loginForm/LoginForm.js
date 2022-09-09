@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { Textfield } from "../textfield/Textfield";
+import swal from 'sweetalert';
 import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -45,7 +46,7 @@ export const LoginForm = () => {
                 localStorage.getItem(JSON.stringify(values.username))
               );
               if (values.password !== user.password) {
-                alert("This password is incorrect");
+                swal("Oops!", "You have entered an incorrect password", "error");
               } else {
                 handleSubmit(user);
               }
