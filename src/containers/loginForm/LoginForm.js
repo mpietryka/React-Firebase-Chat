@@ -28,7 +28,13 @@ export const LoginForm = () => {
     const user = JSON.parse(
       localStorage.getItem(JSON.stringify(values.username))
     );
-    if (values.password !== user.password) {
+    if(!user){
+      swal(
+        "Oops! the user doesn't exist",
+        "Try again",
+        "error"
+      );
+    }else if (values.password !== user.password) {
       swal(
         "Oops! You have entered an incorrect password",
         "Try again",
