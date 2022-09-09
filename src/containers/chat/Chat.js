@@ -1,10 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Heading, ShadowBox, Centered } from "../../components";
+import { Link, useNavigate } from "react-router-dom";
+import { Heading, ShadowBox, Centered, NavigationBar, NavBarItem } from "../../components";
+import { logout } from "../../features/userSlice";
+import { useDispatch } from "react-redux";
 
 export const Chat = () => {
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
+    navigate("/");
+  };
 
   return (
     <Centered>
@@ -12,32 +22,29 @@ export const Chat = () => {
         <Heading>Welcome Back {user.username}!</Heading>
         <ShadowBox>
           <div className="grid md:grid-cols-5 gap-3">
-            <div className="mb-4 min-h-full flex flex-row justify-left border-b-2 md:flex-col md:justify-start md:border-b-0 md:border-r-2 border-gray-200 ">
-              <div className="mx-4 md:mx-0 md:mb-4">
-                <Link
-                  to="/dashboard"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >
+
+            <NavigationBar>
+              <NavBarItem>
+                <Link to="/dashboard" className="text-blue-500">
                   Home
                 </Link>
-              </div>
-              <div className="mx-4 md:mx-0 md:mb-4">
-                <Link
-                  to="/updateProfile"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >
+              </NavBarItem>
+              <NavBarItem>
+                <Link to="/updateProfile" className="text-blue-500">
                   Update Profile
                 </Link>
-              </div>
-              <div className="mx-4 md:mx-0 md:mb-4">
-                <Link
-                  to="/chat"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >
+              </NavBarItem>
+              <NavBarItem>
+                <Link to="/chat" className="text-blue-500">
                   Chat
                 </Link>
-              </div>
-            </div>
+              </NavBarItem>
+              <NavBarItem>
+                <button onClick={(e) => handleLogout(e)}>
+                  Log out
+                </button>
+              </NavBarItem>
+            </NavigationBar>
             <div className="md:col-span-4">
               <p className="text-base md:text-xl font-normal text-center">
                 Chat here

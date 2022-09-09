@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Heading,
-  Btn,
   ShadowBox,
   Centered,
   Avatar,
   Semibold,
+  Grid2cols,
+  NavigationBar,
+  NavBarItem,
 } from "../../components";
 import { logout } from "../../features/userSlice";
 import avatar from "./generic-avatar-1.png";
@@ -28,53 +30,52 @@ export const Dashboard = () => {
         <Heading>Welcome Back {user.username}!</Heading>
         <ShadowBox>
           <div className="grid md:grid-cols-5 gap-3">
-            <div className="mb-4 min-h-full flex flex-row justify-left border-b-2 md:flex-col md:justify-start md:border-b-0 md:border-r-2 border-gray-200 ">
-              <div className="mx-4 md:mx-0 md:mb-4">
-                <Link
-                  to="/dashboard"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >
+            <NavigationBar>
+              <NavBarItem>
+                <Link to="/dashboard" className="text-blue-500">
                   Home
                 </Link>
-              </div>
-              <div className="mx-4 md:mx-0 md:mb-4">
-                <Link
-                  to="/updateProfile"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >
+              </NavBarItem>
+              <NavBarItem>
+                <Link to="/updateProfile" className="text-blue-500">
                   Update Profile
                 </Link>
-              </div>
-              <div className="mx-4 md:mx-0 md:mb-4">
-                <Link
-                  to="/chat"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >
+              </NavBarItem>
+              <NavBarItem>
+                <Link to="/chat" className="text-blue-500">
                   Chat
                 </Link>
-              </div>
-            </div>
+              </NavBarItem>
+              <NavBarItem>
+                <button onClick={(e) => handleLogout(e)}>
+                  Log out
+                </button>
+              </NavBarItem>
+            </NavigationBar>
             <div className="md:col-span-4">
-              <Avatar src={avatar} alt="avatar"></Avatar>
-              <p className="text-base md:text-xl font-normal text-center">
-                Username:
-                <Semibold> {user?.username}</Semibold>
-              </p>
-              <p className="text-base md:text-xl font-normal text-center">
-                First name:
-                <Semibold> {user?.firstName}</Semibold>
-              </p>
-              <p className="text-base md:text-xl font-normal text-center">
-                Last name:
-                <Semibold> {user?.lastName}</Semibold>
-              </p>
-              <p className="text-base md:text-xl font-normal text-center">
-                Email:
-                <Semibold> {user?.email}</Semibold>
-              </p>
-              <div className="md:w-1/4 mx-auto mt-8">
-                <Btn onClick={(e) => handleLogout(e)}>Log Out</Btn>
-              </div>
+              <Grid2cols>
+                <div>
+                  <Avatar src={avatar} alt="avatar"></Avatar>
+                </div>
+                <div className="text-left">
+                  <p className="py-1 text-sm md:text-base">
+                    Username:
+                    <Semibold> {user?.username}</Semibold>
+                  </p>
+                  <p className="py-1 text-sm md:text-base">
+                    First name:
+                    <Semibold> {user?.firstName}</Semibold>
+                  </p>
+                  <p className="py-1 text-sm md:text-base">
+                    Last name:
+                    <Semibold> {user?.lastName}</Semibold>
+                  </p>
+                  <p className="py-1 text-sm md:text-base">
+                    Email:
+                    <Semibold> {user?.email}</Semibold>
+                  </p>
+                </div>
+              </Grid2cols>
             </div>
           </div>
         </ShadowBox>

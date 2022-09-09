@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { Textfield } from "../textfield/Textfield";
 import { Datepicker } from "../datepicker/Datepicker";
 import * as Yup from "yup";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Heading,
@@ -25,7 +25,7 @@ export const RegisterForm = () => {
       .max(20, "Must be 20 characters or less")
       .required("Please enter your last name"),
     username: Yup.string()
-      .max(15, "Must be 15 characters or less")
+      .max(20, "Must be 20 characters or less")
       .required("Please enter your username"),
     email: Yup.string()
       .email("This is not a valid email address")
@@ -47,7 +47,11 @@ export const RegisterForm = () => {
   const handleSubmit = (values) => {
     const username = values.username;
     if (localStorage.getItem(JSON.stringify(username))) {
-      swal("Looks like this username is already in use", "Try another one", "warning");
+      swal(
+        "Looks like this username is already in use",
+        "Try another one",
+        "warning"
+      );
     } else {
       localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
       console.log("onSubmit", values);
@@ -72,7 +76,7 @@ export const RegisterForm = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
-              handleSubmit(values)
+              handleSubmit(values);
             }}
           >
             <Form>
@@ -90,7 +94,6 @@ export const RegisterForm = () => {
               <Btn type="submit">
                 <Semibold>REGISTER</Semibold>
               </Btn>
-
               <p className=" mt-5 flex justify-between font-light">
                 Already have an account?
                 <Link

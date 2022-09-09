@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { Textfield } from "../textfield/Textfield";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -25,9 +25,15 @@ export const LoginForm = () => {
   });
 
   const handleSubmit = (values) => {
-    const user = JSON.parse(localStorage.getItem(JSON.stringify(values.username)))
+    const user = JSON.parse(
+      localStorage.getItem(JSON.stringify(values.username))
+    );
     if (values.password !== user.password) {
-      swal("Oops!", "You have entered an incorrect password", "error");
+      swal(
+        "Oops! You have entered an incorrect password",
+        "Try again",
+        "error"
+      );
     } else {
       dispatch(Login(user));
       navigate("/dashboard");
@@ -47,7 +53,7 @@ export const LoginForm = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
-              handleSubmit(values)
+              handleSubmit(values);
             }}
           >
             <Form>

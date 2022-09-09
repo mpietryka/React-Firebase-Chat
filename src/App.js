@@ -4,6 +4,7 @@ import {
   RegisterForm,
   UpdateProfile,
   Chat,
+  ChangePassword,
 } from "./containers";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
@@ -31,6 +32,11 @@ const App = () => {
           exact
           path="/updateProfile"
           element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/" />}
+        />
+                <Route
+          exact
+          path="/changePassword"
+          element={isAuthenticated ? <ChangePassword /> : <Navigate to="/" />}
         />
         <Route
           exact
