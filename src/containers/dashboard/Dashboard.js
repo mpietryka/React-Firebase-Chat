@@ -47,9 +47,7 @@ export const Dashboard = () => {
                 </Link>
               </NavBarItem>
               <NavBarItem>
-                <button onClick={(e) => handleLogout(e)}>
-                  Log out
-                </button>
+                <button onClick={(e) => handleLogout(e)}>Log out</button>
               </NavBarItem>
             </NavigationBar>
             <div className="md:col-span-4">

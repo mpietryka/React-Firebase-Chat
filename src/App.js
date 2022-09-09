@@ -33,7 +33,7 @@ const App = () => {
           path="/updateProfile"
           element={isAuthenticated ? <UpdateProfile /> : <Navigate to="/" />}
         />
-                <Route
+        <Route
           exact
           path="/changePassword"
           element={isAuthenticated ? <ChangePassword /> : <Navigate to="/" />}

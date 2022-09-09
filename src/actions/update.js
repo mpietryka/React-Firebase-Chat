@@ -7,7 +7,7 @@ export const Update = (values) => (dispatch) => {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
-        password: values.password
+        password: values.password,
       })
     );
   } catch (error) {

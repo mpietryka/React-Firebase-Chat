@@ -3,7 +3,15 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Heading, ShadowBox, Centered, Semibold, Btn, NavigationBar, NavBarItem } from "../../components";
+import {
+  Heading,
+  ShadowBox,
+  Centered,
+  Semibold,
+  Btn,
+  NavigationBar,
+  NavBarItem,
+} from "../../components";
 import { Textfield } from "../textfield/Textfield";
 import { logout } from "../../features/userSlice";
 import { Update } from "../../actions/update";
@@ -16,28 +24,15 @@ export const UpdateProfile = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
-    const Currentuser = JSON.parse(localStorage.getItem(JSON.stringify(user.username)))
-    Currentuser.firstName = values.firstName
-    Currentuser.lastName = values.lastName
-    Currentuser.email = values.email
-    if(values.oldPassword !== Currentuser.password){
-      swal(
-        "Ooops!",
-        "This is not your old password try again",
-        "warning"
-        );
-    }else{
-      Currentuser.password = values.password
-      Currentuser.confirmPassword = values.confirmPassword
-      localStorage.setItem(JSON.stringify(Currentuser.username), JSON.stringify(Currentuser));
-      dispatch(Update(Currentuser))
-      swal(
-        "All done",
-        "Your details were updated",
-        "success"
-        );
-        navigate("/dashboard")
-      }
+    const Currentuser = JSON.parse(
+      localStorage.getItem(JSON.stringify(user.username))
+    );
+    Currentuser.firstName = values.firstName;
+    Currentuser.lastName = values.lastName;
+    Currentuser.email = values.email;
+    dispatch(Update(Currentuser));
+    swal("All done", "Your details were updated", "success");
+    navigate("/dashboard");
   };
 
   const handleLogout = (e) => {
@@ -79,9 +74,7 @@ export const UpdateProfile = () => {
                 </Link>
               </NavBarItem>
               <NavBarItem>
-                <button onClick={(e) => handleLogout(e)}>
-                  Log out
-                </button>
+                <button onClick={(e) => handleLogout(e)}>Log out</button>
               </NavBarItem>
             </NavigationBar>
             <div className="md:col-span-4">
@@ -94,7 +87,7 @@ export const UpdateProfile = () => {
                   }}
                   validationSchema={validate}
                   onSubmit={(values) => {
-                    handleSubmit(values)
+                    handleSubmit(values);
                   }}
                 >
                   <Form>
@@ -109,13 +102,13 @@ export const UpdateProfile = () => {
                       <Semibold>Change Password</Semibold>
                     </Btn>
                     <p className=" mt-5 flex justify-end font-light">
-                <Link
-                  to="/changePassword"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >Change your password
-                </Link>
-
-              </p>
+                      <Link
+                        to="/changePassword"
+                        className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                      >
+                        Change your password
+                      </Link>
+                    </p>
                   </Form>
                 </Formik>
               </div>

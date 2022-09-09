@@ -1,7 +1,13 @@
 import React from "react";
 //import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Heading, ShadowBox, Centered, NavigationBar, NavBarItem } from "../../components";
+import {
+  Heading,
+  ShadowBox,
+  Centered,
+  NavigationBar,
+  NavBarItem,
+} from "../../components";
 import { logout } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -22,7 +28,6 @@ export const Chat = () => {
         <Heading>Chat</Heading>
         <ShadowBox>
           <div className="grid md:grid-cols-5 gap-3">
-
             <NavigationBar>
               <NavBarItem>
                 <Link to="/dashboard" className="text-blue-500">
@@ -40,9 +45,7 @@ export const Chat = () => {
                 </Link>
               </NavBarItem>
               <NavBarItem>
-                <button onClick={(e) => handleLogout(e)}>
-                  Log out
-                </button>
+                <button onClick={(e) => handleLogout(e)}>Log out</button>
               </NavBarItem>
             </NavigationBar>
             <div className="md:col-span-4">
