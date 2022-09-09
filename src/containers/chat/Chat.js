@@ -1,12 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Heading, ShadowBox, Centered, NavigationBar, NavBarItem } from "../../components";
 import { logout } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
 
 export const Chat = () => {
-  const user = useSelector((state) => state.user);
+  //const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ export const Chat = () => {
   return (
     <Centered>
       <div className="w-11/12 md:w-3/4 mx-auto">
-        <Heading>Welcome Back {user.username}!</Heading>
+        <Heading>Chat</Heading>
         <ShadowBox>
           <div className="grid md:grid-cols-5 gap-3">
 

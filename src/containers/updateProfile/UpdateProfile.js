@@ -59,7 +59,7 @@ export const UpdateProfile = () => {
   return (
     <Centered>
       <div className="w-11/12 md:w-3/4 mx-auto">
-        <Heading>Welcome Back {user.username}!</Heading>
+        <Heading>Update your personal details</Heading>
         <ShadowBox>
           <div className="grid md:grid-cols-5 gap-3">
             <NavigationBar>
