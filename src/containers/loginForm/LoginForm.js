@@ -25,8 +25,13 @@ export const LoginForm = () => {
   });
 
   const handleSubmit = (values) => {
-    dispatch(Login(values));
-    navigate("/dashboard");
+    const user = JSON.parse(localStorage.getItem(JSON.stringify(values.username)))
+    if (values.password !== user.password) {
+      swal("Oops!", "You have entered an incorrect password", "error");
+    } else {
+      dispatch(Login(user));
+      navigate("/dashboard");
+    }
   };
 
   return (
@@ -42,14 +47,7 @@ export const LoginForm = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
-              const user = JSON.parse(
-                localStorage.getItem(JSON.stringify(values.username))
-              );
-              if (values.password !== user.password) {
-                swal("Oops!", "You have entered an incorrect password", "error");
-              } else {
-                handleSubmit(user);
-              }
+              handleSubmit(values)
             }}
           >
             <Form>

@@ -46,7 +46,13 @@ export const RegisterForm = () => {
   });
   const handleSubmit = (values) => {
     const username = values.username;
-    localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
+    if (localStorage.getItem(JSON.stringify(username))) {
+      swal("Looks like this username is already in use", "Try another one", "warning");
+    } else {
+      localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
+      console.log("onSubmit", values);
+      navigate("/");
+    }
   };
 
   return (
@@ -66,14 +72,7 @@ export const RegisterForm = () => {
             }}
             validationSchema={validate}
             onSubmit={(values) => {
-              const username = values.username;
-              if (localStorage.getItem(JSON.stringify(username))) {
-                swal("Looks like this username is already in use", "Try another one", "warning");
-              } else {
-                handleSubmit(values);
-                console.log("onSubmit", values);
-                navigate("/");
-              }
+              handleSubmit(values)
             }}
           >
             <Form>
