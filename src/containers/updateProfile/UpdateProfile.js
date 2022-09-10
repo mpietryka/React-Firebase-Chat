@@ -30,6 +30,7 @@ export const UpdateProfile = () => {
     Currentuser.firstName = values.firstName;
     Currentuser.lastName = values.lastName;
     Currentuser.email = values.email;
+    localStorage.setItem(JSON.stringify(Currentuser.username), JSON.stringify(Currentuser))
     dispatch(Update(Currentuser));
     swal("All done", "Your details were updated", "success");
     navigate("/dashboard");
