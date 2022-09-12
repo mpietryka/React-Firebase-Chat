@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Heading,
-  ShadowBox,
+  FormBox,
   Btn,
   MainContainer,
   Centered,
@@ -28,13 +28,9 @@ export const LoginForm = () => {
     const user = JSON.parse(
       localStorage.getItem(JSON.stringify(values.username))
     );
-    if(!user){
-      swal(
-        "Oops! the user doesn't exist",
-        "Try again",
-        "error"
-      );
-    }else if (values.password !== user.password) {
+    if (!user) {
+      swal("Oops! the user doesn't exist", "Try again", "error");
+    } else if (values.password !== user.password) {
       swal(
         "Oops! You have entered an incorrect password",
         "Try again",
@@ -50,7 +46,7 @@ export const LoginForm = () => {
     <Centered>
       <Heading>LOG IN TO YOUR ACCOUNT</Heading>
       <MainContainer>
-        <ShadowBox>
+        <FormBox>
           <Formik
             initialValues={{
               username: "",
@@ -80,7 +76,7 @@ export const LoginForm = () => {
               </p>
             </Form>
           </Formik>
-        </ShadowBox>
+        </FormBox>
       </MainContainer>
     </Centered>
   );

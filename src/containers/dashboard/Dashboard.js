@@ -29,7 +29,7 @@ export const Dashboard = () => {
       <div className="w-11/12 md:w-3/4 mx-auto">
         <Heading>Home</Heading>
         <ShadowBox>
-          <div className="grid md:grid-cols-5 gap-3">
+          <div className="md:h-[60vh] grid md:grid-cols-5 gap-3">
             <NavigationBar>
               <NavBarItem>
                 <Link to="/dashboard" className="text-blue-500">
@@ -54,8 +54,15 @@ export const Dashboard = () => {
               <Grid2cols>
                 <div>
                   <Avatar src={avatar} alt="avatar"></Avatar>
+                  <div className="mx-auto">
+                    <NavBarItem>
+                      <button className="w-full mb-4 text-blue-500">
+                        Change profile picture
+                      </button>
+                    </NavBarItem>
+                  </div>
                 </div>
-                <div className="text-left">
+                <div className="m-auto text-left">
                   <p className="py-1 text-sm md:text-base">
                     Username:
                     <Semibold> {user?.username}</Semibold>

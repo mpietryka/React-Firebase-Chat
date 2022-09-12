@@ -7,11 +7,11 @@ import swal from "sweetalert";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Heading,
-  ShadowBox,
   Btn,
   MainContainer,
   Centered,
   Semibold,
+  FormBox,
 } from "../../components";
 
 export const RegisterForm = () => {
@@ -63,7 +63,7 @@ export const RegisterForm = () => {
     <Centered>
       <Heading>REGISTER</Heading>
       <MainContainer>
-        <ShadowBox>
+        <FormBox>
           <Formik
             initialValues={{
               firstName: "",
@@ -105,7 +105,7 @@ export const RegisterForm = () => {
               </p>
             </Form>
           </Formik>
-        </ShadowBox>
+        </FormBox>
       </MainContainer>
     </Centered>
   );

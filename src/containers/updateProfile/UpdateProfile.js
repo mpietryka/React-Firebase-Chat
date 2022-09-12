@@ -30,7 +30,10 @@ export const UpdateProfile = () => {
     Currentuser.firstName = values.firstName;
     Currentuser.lastName = values.lastName;
     Currentuser.email = values.email;
-    localStorage.setItem(JSON.stringify(Currentuser.username), JSON.stringify(Currentuser))
+    localStorage.setItem(
+      JSON.stringify(Currentuser.username),
+      JSON.stringify(Currentuser)
+    );
     dispatch(Update(Currentuser));
     swal("All done", "Your details were updated", "success");
     navigate("/dashboard");
@@ -57,7 +60,7 @@ export const UpdateProfile = () => {
       <div className="w-11/12 md:w-3/4 mx-auto">
         <Heading>Update your personal details</Heading>
         <ShadowBox>
-          <div className="grid md:grid-cols-5 gap-3">
+          <div className="md:h-[60vh] grid md:grid-cols-5 gap-3">
             <NavigationBar>
               <NavBarItem>
                 <Link to="/dashboard" className="text-blue-500">

@@ -2,6 +2,7 @@ export { ErrorMsg } from "./errorMsg/ErrorMsg";
 export { Heading } from "./heading/Heading";
 export { Heading2 } from "./heading2/Heading2";
 export { ShadowBox } from "./shadowBox/ShadowBox";
+export { FormBox } from "./shadowBox/FormBox";
 export { Btn } from "./btn/Btn";
 export { MainContainer } from "./mainContainer/MainContainer";
 export { Grid2cols } from "./grid2cols/Grid2cols";
