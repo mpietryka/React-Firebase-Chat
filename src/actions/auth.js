@@ -10,6 +10,7 @@ export const Login = (values) => (dispatch) => {
         DOB: values.DOB,
         username: values.username,
         password: values.password,
+        profilePicture: values.profilePicture,
         isAuthenticated: true,
       })
     );

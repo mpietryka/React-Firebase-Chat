@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -18,6 +17,7 @@ export const Dashboard = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -37,8 +37,8 @@ export const Dashboard = () => {
                 </Link>
               </NavBarItem>
               <NavBarItem>
-                <Link to="/updateProfile" className="text-blue-500">
-                  Update Profile
+                <Link to="/settings" className="text-blue-500">
+                  Settings
                 </Link>
               </NavBarItem>
               <NavBarItem>
@@ -53,14 +53,11 @@ export const Dashboard = () => {
             <div className="md:col-span-4">
               <Grid2cols>
                 <div>
-                  <Avatar src={avatar} alt="avatar"></Avatar>
-                  <div className="mx-auto">
-                    <NavBarItem>
-                      <button className="w-full mb-4 text-blue-500">
-                        Change profile picture
-                      </button>
-                    </NavBarItem>
-                  </div>
+                  {!user.profilePicture ? (
+                    <Avatar src={avatar} alt="avatar"></Avatar>
+                  ) : (
+                    <Avatar src={user.profilePicture} alt="profilePic"></Avatar>
+                  )}
                 </div>
                 <div className="m-auto text-left">
                   <p className="py-1 text-sm md:text-base">

@@ -8,6 +8,7 @@ export const Update = (values) => (dispatch) => {
         lastName: values.lastName,
         email: values.email,
         password: values.password,
+        profilePicture: values.profilePicture,
       })
     );
   } catch (error) {

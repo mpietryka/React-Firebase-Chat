@@ -9,10 +9,11 @@ import {
   NavBarItem,
 } from "../../components";
 import { logout } from "../../features/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import swal from "sweetalert";
 
-export const Chat = () => {
-  //const user = useSelector((state) => state.user);
+export const Settings = () => {
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -21,6 +22,28 @@ export const Chat = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  const handleDelete = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Goodbye!","Your Account had been deleted. We're sad to see you go!", {
+          icon: "success",
+        });
+        localStorage.removeItem(JSON.stringify(user.username));
+        dispatch(logout())
+        navigate("/")
+      } else {
+        swal("Phew!","Your Account is safe!");
+      }
+    });
+  }
 
   return (
     <Centered>
@@ -47,11 +70,21 @@ export const Chat = () => {
               <NavBarItem>
                 <button onClick={(e) => handleLogout(e)}>Log out</button>
               </NavBarItem>
+
             </NavigationBar>
             <div className="md:col-span-4">
-              <p className="text-base md:text-xl font-normal text-center">
-                Chat here
-              </p>
+              <NavBarItem>
+                <Link to="/updateProfile">Update profile</Link>
+              </NavBarItem>
+              <NavBarItem>
+                <Link to="/updateProfilePicture">Update profile picture</Link>
+              </NavBarItem>
+              <NavBarItem>
+                <Link to="/changePassword"> Change your password </Link>{" "}
+              </NavBarItem>
+              <NavBarItem>
+                <button className="text-red-500" onClick={(e) => handleDelete(e)}>Delete Account</button>
+              </NavBarItem>
             </div>
           </div>
         </ShadowBox>

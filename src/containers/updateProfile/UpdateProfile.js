@@ -24,17 +24,17 @@ export const UpdateProfile = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
-    const Currentuser = JSON.parse(
+    const currentUser = JSON.parse(
       localStorage.getItem(JSON.stringify(user.username))
     );
-    Currentuser.firstName = values.firstName;
-    Currentuser.lastName = values.lastName;
-    Currentuser.email = values.email;
+    currentUser.firstName = values.firstName;
+    currentUser.lastName = values.lastName;
+    currentUser.email = values.email;
     localStorage.setItem(
-      JSON.stringify(Currentuser.username),
-      JSON.stringify(Currentuser)
+      JSON.stringify(currentUser.username),
+      JSON.stringify(currentUser)
     );
-    dispatch(Update(Currentuser));
+    dispatch(Update(currentUser));
     swal("All done", "Your details were updated", "success");
     navigate("/dashboard");
   };
@@ -68,8 +68,8 @@ export const UpdateProfile = () => {
                 </Link>
               </NavBarItem>
               <NavBarItem>
-                <Link to="/updateProfile" className="text-blue-500">
-                  Update Profile
+                <Link to="/settings" className="text-blue-500">
+                  Settings
                 </Link>
               </NavBarItem>
               <NavBarItem>
@@ -103,16 +103,8 @@ export const UpdateProfile = () => {
                     <Textfield label="Last Name" name="lastName" type="text" />
                     <Textfield label="Email" name="email" type="email" />
                     <Btn type="submit">
-                      <Semibold>Change Password</Semibold>
+                      <Semibold>Update Details</Semibold>
                     </Btn>
-                    <p className=" mt-5 flex justify-end font-light">
-                      <Link
-                        to="/changePassword"
-                        className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                      >
-                        Change your password
-                      </Link>
-                    </p>
                   </Form>
                 </Formik>
               </div>

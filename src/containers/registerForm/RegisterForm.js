@@ -73,6 +73,7 @@ export const RegisterForm = () => {
               email: "",
               password: "",
               confirmPassword: "",
+              profilePicture: "",
             }}
             validationSchema={validate}
             onSubmit={(values) => {

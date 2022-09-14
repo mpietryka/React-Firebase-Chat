@@ -5,6 +5,8 @@ import {
   UpdateProfile,
   Chat,
   ChangePassword,
+  Settings,
+  UpdateProfilePicture,
 } from "./containers";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
@@ -35,6 +37,13 @@ const App = () => {
         />
         <Route
           exact
+          path="/updateProfilePicture"
+          element={
+            isAuthenticated ? <UpdateProfilePicture /> : <Navigate to="/" />
+          }
+        />
+        <Route
+          exact
           path="/changePassword"
           element={isAuthenticated ? <ChangePassword /> : <Navigate to="/" />}
         />
@@ -42,6 +51,11 @@ const App = () => {
           exact
           path="/chat"
           element={isAuthenticated ? <Chat /> : <Navigate to="/" />}
+        />
+        <Route
+          exact
+          path="/settings"
+          element={isAuthenticated ? <Settings /> : <Navigate to="/" />}
         />
       </Routes>
     </Router>

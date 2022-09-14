@@ -71,8 +71,8 @@ export const ChangePassword = () => {
                 </Link>
               </NavBarItem>
               <NavBarItem>
-                <Link to="/updateProfile" className="text-blue-500">
-                  Update Profile
+                <Link to="/settings" className="text-blue-500">
+                  Settings
                 </Link>
               </NavBarItem>
               <NavBarItem>
