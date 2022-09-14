@@ -60,7 +60,7 @@ export const UpdateProfilePicture = () => {
       <div className="w-11/12 md:w-3/4 mx-auto">
         <Heading>Update Profile Picture</Heading>
         <ShadowBox>
-          <div className="md:h-[60vh] grid md:grid-cols-5 gap-3">
+        <div className="md:h-full grid md:grid-cols-5 gap-3">
             <NavigationBar>
               <NavBarItem>
                 <Link to="/dashboard" className="text-blue-500">
@@ -96,12 +96,12 @@ export const UpdateProfilePicture = () => {
                   </p>
                   <input
                     type="file"
-                    className="inline-block opacity-90 hover:opacity-100 transition-opacity file:py-3 file:px-4 file:rounded-md file:border-0 file:bg-blue-500 file:text-white hover:file:cursor-pointer"
+                    className="inline-block opacity-90 hover:opacity-100 transition-opacity file:w-2/3 file:py-3 file:px-4 file:rounded-md file:border-0 file:bg-blue-500 file:text-white hover:file:cursor-pointer"
                     accept=".jpg,.jpeg,.png"
                     onChange={handleImageChange}
                   />
                   <button
-                    className="text-center px-4 py-3 bg-green-500 rounded-md opacity-90 hover:opacity-100 transition-opacity text-white"
+                    className="text-center mt-4 px-4 py-3 bg-green-500 w-full rounded-md opacity-90 hover:opacity-100 transition-opacity text-white"
                     onClick={handleSubmit}
                   >
                     Change picture

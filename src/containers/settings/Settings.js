@@ -50,7 +50,7 @@ export const Settings = () => {
       <div className="w-11/12 md:w-3/4 mx-auto">
         <Heading>Chat</Heading>
         <ShadowBox>
-          <div className="md:h-[60vh] grid md:grid-cols-5 gap-3">
+        <div className="md:h-full grid md:grid-cols-5 gap-3">
             <NavigationBar>
               <NavBarItem>
                 <Link to="/dashboard" className="text-blue-500">
