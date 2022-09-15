@@ -52,14 +52,14 @@ export const Dashboard = () => {
             </NavigationBar>
             <div className="md:col-span-4">
               <Grid2cols>
-                <div>
+                <div className="h-full">
                   {!user.profilePicture ? (
                     <Avatar src={avatar} alt="avatar"></Avatar>
                   ) : (
                     <Avatar src={user.profilePicture} alt="profilePic"></Avatar>
                   )}
                 </div>
-                <div className="m-auto text-left">
+                <div className="mx-auto text-left">
                   <p className="py-1 text-sm md:text-base">
                     Username:
                     <Semibold> {user?.username}</Semibold>

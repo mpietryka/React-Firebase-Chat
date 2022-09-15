@@ -54,7 +54,6 @@ export const RegisterForm = () => {
       );
     } else {
       localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
-      console.log("onSubmit", values);
       navigate("/");
     }
   };

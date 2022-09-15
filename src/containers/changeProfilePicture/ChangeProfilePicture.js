@@ -42,7 +42,11 @@ export const UpdateProfilePicture = () => {
       localStorage.getItem(JSON.stringify(user.username))
     );
     if (!image) {
-      swal("You have not uploaded anything", "Select a file and try again", "warning");
+      swal(
+        "You have not uploaded anything",
+        "Select a file and try again",
+        "warning"
+      );
     } else {
       currentUser.profilePicture = image;
       localStorage.setItem(
@@ -60,7 +64,7 @@ export const UpdateProfilePicture = () => {
       <div className="w-11/12 md:w-3/4 mx-auto">
         <Heading>Update Profile Picture</Heading>
         <ShadowBox>
-        <div className="md:h-full grid md:grid-cols-5 gap-3">
+          <div className="md:h-full grid md:grid-cols-5 gap-3">
             <NavigationBar>
               <NavBarItem>
                 <Link to="/dashboard" className="text-blue-500">

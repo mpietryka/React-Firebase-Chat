@@ -30,27 +30,30 @@ export const Settings = () => {
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    })
-    .then((willDelete) => {
+    }).then((willDelete) => {
       if (willDelete) {
-        swal("Goodbye!","Your Account had been deleted. We're sad to see you go!", {
-          icon: "success",
-        });
+        swal(
+          "Goodbye!",
+          "Your Account had been deleted. We're sad to see you go!",
+          {
+            icon: "success",
+          }
+        );
         localStorage.removeItem(JSON.stringify(user.username));
-        dispatch(logout())
-        navigate("/")
+        dispatch(logout());
+        navigate("/");
       } else {
-        swal("Phew!","Your Account is safe!");
+        swal("Phew!", "Your Account is safe!");
       }
     });
-  }
+  };
 
   return (
     <Centered>
       <div className="w-11/12 md:w-3/4 mx-auto">
         <Heading>Chat</Heading>
         <ShadowBox>
-        <div className="md:h-full grid md:grid-cols-5 gap-3">
+          <div className="md:h-full grid md:grid-cols-5 gap-3">
             <NavigationBar>
               <NavBarItem>
                 <Link to="/dashboard" className="text-blue-500">
@@ -70,7 +73,6 @@ export const Settings = () => {
               <NavBarItem>
                 <button onClick={(e) => handleLogout(e)}>Log out</button>
               </NavBarItem>
-
             </NavigationBar>
             <div className="md:col-span-4">
               <NavBarItem>
@@ -83,7 +85,12 @@ export const Settings = () => {
                 <Link to="/changePassword"> Change your password </Link>{" "}
               </NavBarItem>
               <NavBarItem>
-                <button className="text-red-500" onClick={(e) => handleDelete(e)}>Delete Account</button>
+                <button
+                  className="text-red-500"
+                  onClick={(e) => handleDelete(e)}
+                >
+                  Delete Account
+                </button>
               </NavBarItem>
             </div>
           </div>
