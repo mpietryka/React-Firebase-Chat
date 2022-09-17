@@ -38,9 +38,14 @@ export const UpdateProfilePicture = () => {
   };
 
   const handleSubmit = () => {
+    var users = JSON.parse(localStorage.getItem("users"));
+
+    /* OLD
+    
     const currentUser = JSON.parse(
       localStorage.getItem(JSON.stringify(user.username))
     );
+    */
     if (!image) {
       swal(
         "You have not uploaded anything",
@@ -48,11 +53,28 @@ export const UpdateProfilePicture = () => {
         "warning"
       );
     } else {
+      const tempUsers = users.map((obj) => {
+        if (obj.username === user.username) {
+          return { ...obj, profilePicture: image };
+        }
+        return obj;
+      });
+
+      users = tempUsers;
+
+      /*OLD
+      
       currentUser.profilePicture = image;
       localStorage.setItem(
         JSON.stringify(currentUser.username),
         JSON.stringify(currentUser)
       );
+      */
+
+      localStorage.setItem("users", JSON.stringify(users));
+
+      const currentUser = users.find((item) => item.username === user.username);
+
       dispatch(Update(currentUser));
       swal("All done", "Your profile picture was updated", "success");
       navigate("/dashboard");

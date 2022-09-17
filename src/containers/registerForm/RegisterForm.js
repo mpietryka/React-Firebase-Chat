@@ -47,30 +47,31 @@ export const RegisterForm = () => {
   });
 
   const handleSubmit = (values) => {
-    const username = values.username;
-    if (localStorage.getItem(JSON.stringify(username))) {
-      //find username in the array of users
-      //const findIt = users.find(item => item.username === username)
-      //console.log(findIt)
+    //if array not in localStorage initialise empty array
+    if (localStorage.getItem("users") === null) {
+      users = [];
+    } else {
+      users = JSON.parse(localStorage.getItem("users"));
+    }
+    //find username in the array of users
+    const findByUsername = users.find(
+      (item) => item.username === values.username
+    );
+    //old condition
+    //if (localStorage.getItem(JSON.stringify(users))) {
+    if (findByUsername) {
       swal(
         "Looks like this username is already in use",
         "Try another one",
         "warning"
       );
     } else {
-      //if array not in localStorage initialise empty array
-      if(localStorage.getItem('users')===null){
-        users = [];
-      }else{
-      //if array in localStorage populate the array with the values stored in localStorage
-      users = JSON.parse(localStorage.getItem('users'))
-      }
       //store new users in array
-      users.push(values)
+      users.push(values);
       //store array in localStorage
-      localStorage.setItem('users', JSON.stringify(users))
-      //
-      localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
+      localStorage.setItem("users", JSON.stringify(users));
+      //store individual user in the localStorage(old)
+      //localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
       navigate("/");
     }
   };

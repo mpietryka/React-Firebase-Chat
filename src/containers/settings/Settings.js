@@ -1,5 +1,4 @@
 import React from "react";
-//import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Heading,
@@ -24,9 +23,11 @@ export const Settings = () => {
   };
 
   const handleDelete = () => {
+    var users = JSON.parse(localStorage.getItem("users"));
+
     swal({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
+      text: "Once deleted, you will not be able to recover your account!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -39,7 +40,13 @@ export const Settings = () => {
             icon: "success",
           }
         );
+        //filter the users array, leave everything but the user with the user.username
+        users = users.filter(item => item.username !== user.username);
+        //update localstorage
+        localStorage.setItem("users", JSON.stringify(users));
+        /*OLD
         localStorage.removeItem(JSON.stringify(user.username));
+        */
         dispatch(logout());
         navigate("/");
       } else {

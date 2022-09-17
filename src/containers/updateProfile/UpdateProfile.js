@@ -24,16 +24,34 @@ export const UpdateProfile = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
+    var users = JSON.parse(localStorage.getItem("users"));
+    /*OLD
+
     const currentUser = JSON.parse(
       localStorage.getItem(JSON.stringify(user.username))
     );
-    currentUser.firstName = values.firstName;
-    currentUser.lastName = values.lastName;
-    currentUser.email = values.email;
-    localStorage.setItem(
-      JSON.stringify(currentUser.username),
-      JSON.stringify(currentUser)
-    );
+    */
+
+    //new Array with updated values
+    const tempUsers = users.map((obj) => {
+      if (obj.username === user.username) {
+        return {
+          ...obj,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+        };
+      }
+      return obj;
+    });
+
+    //overwrite old array with the new updated one
+    users = tempUsers;
+    //update localStorage
+    localStorage.setItem("users", JSON.stringify(users));
+    //find the user in the new updated array
+    const currentUser = users.find((item) => item.username === user.username);
+    //update Redux store
     dispatch(Update(currentUser));
     swal("All done", "Your details were updated", "success");
     navigate("/dashboard");

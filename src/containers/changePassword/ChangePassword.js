@@ -24,19 +24,43 @@ export const ChangePassword = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
-    const Currentuser = JSON.parse(
+    var users = JSON.parse(localStorage.getItem("users"));
+    /*OLD
+    const currentUser = JSON.parse(
       localStorage.getItem(JSON.stringify(user.username))
     );
-    if (values.oldPassword !== Currentuser.password) {
+    */
+    const tempUser = users.find((item) => item.username === user.username);
+    if (values.oldPassword !== tempUser.password) {
       swal("Ooops!", "This is not your old password try again", "warning");
     } else {
-      Currentuser.password = values.password;
-      Currentuser.confirmPassword = values.confirmPassword;
+      /* OLD
+      currentUser.password = values.password;
+      currentUser.confirmPassword = values.confirmPassword;
       localStorage.setItem(
-        JSON.stringify(Currentuser.username),
-        JSON.stringify(Currentuser)
+        JSON.stringify(currentUser.username),
+        JSON.stringify(currentUser)
       );
-      dispatch(Update(Currentuser));
+      */
+
+      const tempUsers = users.map((obj) => {
+        if (obj.username === user.username) {
+          return {
+            ...obj,
+            password: values.password,
+            confirmPassword: values.confirmPassword,
+          };
+        }
+        return obj;
+      });
+
+      users = tempUsers;
+
+      localStorage.setItem("users", JSON.stringify(users));
+
+      const currentUser = users.find((item) => item.username === user.username);
+
+      dispatch(Update(currentUser));
       swal("All done", "Your password is now changed", "success");
       navigate("/dashboard");
     }
