@@ -62,19 +62,19 @@ export const Dashboard = () => {
                 <div className="mx-auto text-left">
                   <p className="py-1 text-sm md:text-base">
                     Username:
-                    <Semibold> {user?.username}</Semibold>
+                    <Semibold> {user.username}</Semibold>
                   </p>
                   <p className="py-1 text-sm md:text-base">
                     First name:
-                    <Semibold> {user?.firstName}</Semibold>
+                    <Semibold> {user.firstName}</Semibold>
                   </p>
                   <p className="py-1 text-sm md:text-base">
                     Last name:
-                    <Semibold> {user?.lastName}</Semibold>
+                    <Semibold> {user.lastName}</Semibold>
                   </p>
                   <p className="py-1 text-sm md:text-base">
                     Email:
-                    <Semibold> {user?.email}</Semibold>
+                    <Semibold> {user.email}</Semibold>
                   </p>
                 </div>
               </Grid2cols>
