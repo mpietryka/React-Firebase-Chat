@@ -25,23 +25,10 @@ export const ChangePassword = () => {
 
   const handleSubmit = (values) => {
     var users = JSON.parse(localStorage.getItem("users"));
-    /*OLD
-    const currentUser = JSON.parse(
-      localStorage.getItem(JSON.stringify(user.username))
-    );
-    */
     const tempUser = users.find((item) => item.username === user.username);
     if (values.oldPassword !== tempUser.password) {
       swal("Ooops!", "This is not your old password try again", "warning");
     } else {
-      /* OLD
-      currentUser.password = values.password;
-      currentUser.confirmPassword = values.confirmPassword;
-      localStorage.setItem(
-        JSON.stringify(currentUser.username),
-        JSON.stringify(currentUser)
-      );
-      */
 
       const tempUsers = users.map((obj) => {
         if (obj.username === user.username) {
@@ -84,7 +71,7 @@ export const ChangePassword = () => {
 
   return (
     <Centered>
-      <div className="w-11/12 md:w-3/4 mx-auto">
+      <div style={{height:"80vh"}} className="p-0 w-11/12 md:w-3/4 mx-auto">
         <Heading>Change your password</Heading>
         <ShadowBox>
           <div className="md:h-full grid md:grid-cols-5 gap-3">

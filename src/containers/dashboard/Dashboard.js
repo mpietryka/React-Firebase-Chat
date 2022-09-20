@@ -26,9 +26,9 @@ export const Dashboard = () => {
 
   return (
     <Centered>
-      <div className="p-0 w-11/12 md:w-3/4 mx-auto">
+      <div style={{height:"80vh"}} className="p-0 w-11/12 md:w-3/4 mx-auto">
         <Heading>Home</Heading>
-        <ShadowBox>
+        <ShadowBox >
           <div className="md:h-full grid md:grid-cols-5 gap-3">
             <NavigationBar>
               <NavBarItem>
@@ -55,9 +55,9 @@ export const Dashboard = () => {
                 <div className="h-full">
                   {!user.profilePicture ? (
                     <Avatar src={avatar} alt="avatar"></Avatar>
-                  ) : (
-                    <Avatar src={user.profilePicture} alt="profilePic"></Avatar>
-                  )}
+                    ) : (
+                      <Avatar src={user.profilePicture} alt="profilePic"></Avatar>
+                      )}
                 </div>
                 <div className="mx-auto text-left">
                   <p className="py-1 text-sm md:text-base">

@@ -57,7 +57,7 @@ export const Settings = () => {
 
   return (
     <Centered>
-      <div className="w-11/12 md:w-3/4 mx-auto">
+      <div style={{height:"80vh"}} className="p-0 w-11/12 md:w-3/4 mx-auto">
         <Heading>Chat</Heading>
         <ShadowBox>
           <div className="md:h-full grid md:grid-cols-5 gap-3">

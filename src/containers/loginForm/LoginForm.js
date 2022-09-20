@@ -27,9 +27,6 @@ export const LoginForm = () => {
   const handleSubmit = (values) => {
     const users = JSON.parse(localStorage.getItem("users"));
     const user = users.find((item) => item.username === values.username);
-    //const user = JSON.parse(
-    //  localStorage.getItem(JSON.stringify(values.username))
-    //);
     if (!user) {
       swal("Oops! the user doesn't exist", "Try again", "error");
     } else if (values.password !== user.password) {

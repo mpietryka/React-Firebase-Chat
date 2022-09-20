@@ -16,6 +16,7 @@ const App = () => {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
 
   return (
+    <div style={{ height: '100%', left: '0px', width: '100%', overflow: 'hidden'}} className='pb-10'>
     <Router>
       <Routes>
         <Route
@@ -59,6 +60,7 @@ const App = () => {
         />
       </Routes>
     </Router>
+    </div>
   );
 };
 

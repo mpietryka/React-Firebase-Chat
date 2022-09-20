@@ -39,13 +39,6 @@ export const UpdateProfilePicture = () => {
 
   const handleSubmit = () => {
     var users = JSON.parse(localStorage.getItem("users"));
-
-    /* OLD
-    
-    const currentUser = JSON.parse(
-      localStorage.getItem(JSON.stringify(user.username))
-    );
-    */
     if (!image) {
       swal(
         "You have not uploaded anything",
@@ -61,16 +54,6 @@ export const UpdateProfilePicture = () => {
       });
 
       users = tempUsers;
-
-      /*OLD
-      
-      currentUser.profilePicture = image;
-      localStorage.setItem(
-        JSON.stringify(currentUser.username),
-        JSON.stringify(currentUser)
-      );
-      */
-
       localStorage.setItem("users", JSON.stringify(users));
 
       const currentUser = users.find((item) => item.username === user.username);
@@ -83,7 +66,7 @@ export const UpdateProfilePicture = () => {
 
   return (
     <Centered>
-      <div className="w-11/12 md:w-3/4 mx-auto">
+      <div style={{height:"80vh"}} className="p-0 w-11/12 md:w-3/4 mx-auto">
         <Heading>Update Profile Picture</Heading>
         <ShadowBox>
           <div className="md:h-full grid md:grid-cols-5 gap-3">
