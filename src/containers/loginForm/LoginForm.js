@@ -9,7 +9,6 @@ import {
   FormBox,
   Btn,
   MainContainer,
-  Centered,
   Semibold,
 } from "../../components";
 import { useDispatch } from "react-redux";
@@ -42,9 +41,9 @@ export const LoginForm = () => {
   };
 
   return (
-    <Centered>
-      <Heading>LOG IN TO YOUR ACCOUNT</Heading>
+<div class="flex items-center h-screen w-full">
       <MainContainer>
+      <Heading>LOG IN TO YOUR ACCOUNT</Heading>
         <FormBox>
           <Formik
             initialValues={{
@@ -68,7 +67,7 @@ export const LoginForm = () => {
                 Don't have an account?
                 <Link
                   to="/register"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                  className="font-bold text-blue-500 opacity-90 transition-opacity hover:opacity-100"
                 >
                   Register
                 </Link>
@@ -77,6 +76,7 @@ export const LoginForm = () => {
           </Formik>
         </FormBox>
       </MainContainer>
-    </Centered>
+
+    </div>
   );
 };

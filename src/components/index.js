@@ -6,7 +6,6 @@ export { FormBox } from "./shadowBox/FormBox";
 export { Btn } from "./btn/Btn";
 export { MainContainer } from "./mainContainer/MainContainer";
 export { Grid2cols } from "./grid2cols/Grid2cols";
-export { Centered } from "./centered/Centered";
 export { Avatar } from "./avatar/Avatar";
 export { Semibold } from "./semibold/Semibold";
 export { NavigationBar } from "./navigationBar/NavigationBar";

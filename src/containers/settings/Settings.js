@@ -1,26 +1,52 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Heading,
-  ShadowBox,
-  Centered,
-  NavigationBar,
-  NavBarItem,
-} from "../../components";
+import { NavBarItem } from "../../components";
 import { logout } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 import swal from "sweetalert";
+import { Update } from "../../actions/update";
+import { Textfield } from "../textfield/Textfield";
+import { NavBar } from "../navBar/Navbar";
+import { DrawerContent } from "../drawerContent/DrawerContent";
 
 export const Settings = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    dispatch(logout());
-    navigate("/");
+  const handleSubmit = (values) => {
+    var users = JSON.parse(localStorage.getItem("users"));
+    const tempUsers = users.map((obj) => {
+      if (obj.username === user.username) {
+        return {
+          ...obj,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+        };
+      }
+      return obj;
+    });
+
+    users = tempUsers;
+    localStorage.setItem("users", JSON.stringify(users));
+    const currentUser = users.find((item) => item.username === user.username);
+    dispatch(Update(currentUser));
+    swal("All done", "Your details were updated", "success");
+    navigate("/dashboard");
   };
+
+  const validate = Yup.object({
+    firstName: Yup.string()
+      .max(15, "Must be 15 characters or less")
+      .required("Please enter your first name"),
+    lastName: Yup.string()
+      .max(20, "Must be 20 characters or less")
+      .required("Please enter your last name"),
+    email: Yup.string().email("This is not a valid email address"),
+  });
 
   const handleDelete = () => {
     var users = JSON.parse(localStorage.getItem("users"));
@@ -41,12 +67,8 @@ export const Settings = () => {
           }
         );
         //filter the users array, leave everything but the user with the user.username
-        users = users.filter(item => item.username !== user.username);
-        //update localstorage
+        users = users.filter((item) => item.username !== user.username);
         localStorage.setItem("users", JSON.stringify(users));
-        /*OLD
-        localStorage.removeItem(JSON.stringify(user.username));
-        */
         dispatch(logout());
         navigate("/");
       } else {
@@ -56,53 +78,63 @@ export const Settings = () => {
   };
 
   return (
-    <Centered>
-      <div style={{height:"80vh"}} className="p-0 w-11/12 md:w-3/4 mx-auto">
-        <Heading>Chat</Heading>
-        <ShadowBox>
-          <div className="md:h-full grid md:grid-cols-5 gap-3">
-            <NavigationBar>
-              <NavBarItem>
-                <Link to="/dashboard" className="text-blue-500">
-                  Home
-                </Link>
-              </NavBarItem>
-              <NavBarItem>
-                <Link to="/settings" className="text-blue-500">
-                  Settings
-                </Link>
-              </NavBarItem>
-              <NavBarItem>
-                <Link to="/chat" className="text-blue-500">
-                  Chat
-                </Link>
-              </NavBarItem>
-              <NavBarItem>
-                <button onClick={(e) => handleLogout(e)}>Log out</button>
-              </NavBarItem>
-            </NavigationBar>
-            <div className="md:col-span-4">
-              <NavBarItem>
-                <Link to="/updateProfile">Update profile</Link>
-              </NavBarItem>
-              <NavBarItem>
-                <Link to="/updateProfilePicture">Update profile picture</Link>
-              </NavBarItem>
-              <NavBarItem>
-                <Link to="/changePassword"> Change your password </Link>{" "}
-              </NavBarItem>
-              <NavBarItem>
-                <button
-                  className="text-red-500"
-                  onClick={(e) => handleDelete(e)}
-                >
-                  Delete Account
-                </button>
-              </NavBarItem>
-            </div>
+    <>
+      {/* Drawer */}
+      <div className="drawer-mobile drawer">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div className="drawer-content flex flex-col bg-base-100">
+          <NavBar title="Settings" />
+          {/* main content */}
+          {/* settings navigation */}
+          <div className="flex w-full flex-col lg:justify-between items-center bg-base-100 lg:flex-row">
+            <NavBarItem className="text-blue-500">
+              <Link to="/settings">Update profile</Link>
+            </NavBarItem>
+            <NavBarItem>
+              <Link to="/updateProfilePicture">Update profile picture</Link>
+            </NavBarItem>
+            <NavBarItem>
+              <Link to="/changePassword"> Change your password </Link>
+            </NavBarItem>
+            <NavBarItem>
+              <button className="text-red-500" onClick={(e) => handleDelete(e)}>
+                Delete Account
+              </button>
+            </NavBarItem>
           </div>
-        </ShadowBox>
+          {/* Update details form */}
+          <div className="card mx-auto mt-0 w-3/4 border border-gray-200 bg-base-100 p-4 shadow-xl md:mt-5 lg:w-1/2">
+            <Formik
+              initialValues={{
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+              }}
+              validationSchema={validate}
+              onSubmit={(values) => {
+                handleSubmit(values);
+              }}
+            >
+              <Form>
+                <Textfield label="First Name" name="firstName" type="text" />
+                <Textfield label="Last Name" name="lastName" type="text" />
+                <Textfield label="Email" name="email" type="email" />
+
+                <ul className="menu w-full bg-gray-100 text-center text-base-content ">
+                  <li className="w-full rounded-xl bg-blue-500 text-white">
+                    <button type="submit">
+                      <label className="w-full text-center font-semibold">
+                        Submit
+                      </label>
+                    </button>
+                  </li>
+                </ul>
+              </Form>
+            </Formik>
+          </div>
+        </div>
+        <DrawerContent />
       </div>
-    </Centered>
+    </>
   );
 };

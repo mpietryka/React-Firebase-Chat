@@ -9,7 +9,6 @@ import {
   Heading,
   Btn,
   MainContainer,
-  Centered,
   Semibold,
   FormBox,
 } from "../../components";
@@ -57,8 +56,6 @@ export const RegisterForm = () => {
     const findByUsername = users.find(
       (item) => item.username === values.username
     );
-    //old condition
-    //if (localStorage.getItem(JSON.stringify(users))) {
     if (findByUsername) {
       swal(
         "Looks like this username is already in use",
@@ -66,20 +63,15 @@ export const RegisterForm = () => {
         "warning"
       );
     } else {
-      //store new users in array
       users.push(values);
-      //store array in localStorage
       localStorage.setItem("users", JSON.stringify(users));
-      //store individual user in the localStorage(old)
-      //localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
       navigate("/");
     }
   };
 
   return (
-    <Centered>
-      <Heading>REGISTER</Heading>
       <MainContainer>
+      <Heading>REGISTER</Heading>
         <FormBox>
           <Formik
             initialValues={{
@@ -116,7 +108,7 @@ export const RegisterForm = () => {
                 Already have an account?
                 <Link
                   to="/"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                  className="font-bold text-blue-500 opacity-90 transition-opacity hover:opacity-100"
                 >
                   Log in
                 </Link>
@@ -125,6 +117,5 @@ export const RegisterForm = () => {
           </Formik>
         </FormBox>
       </MainContainer>
-    </Centered>
   );
 };

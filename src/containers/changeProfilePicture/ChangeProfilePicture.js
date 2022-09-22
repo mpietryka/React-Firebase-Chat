@@ -1,30 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import {
-  Heading,
-  ShadowBox,
-  Centered,
-  Avatar,
-  NavigationBar,
-  NavBarItem,
-} from "../../components";
+import { Link, useNavigate } from "react-router-dom";
+import { NavBarItem, Avatar } from "../../components";
 import { logout } from "../../features/userSlice";
-import { Update } from "../../actions/update";
-import avatar from "../dashboard/generic-avatar-1.png";
+import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
+import avatar from "../dashboard/generic-avatar-1.png";
+import { Update } from "../../actions/update";
+import { NavBar } from "../navBar/Navbar";
+import { DrawerContent } from "../drawerContent/DrawerContent";
 
 export const UpdateProfilePicture = () => {
-  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    dispatch(logout());
-    navigate("/");
-  };
-
   const [image, setImage] = useState("");
 
   const handleImageChange = (e) => {
@@ -64,64 +52,113 @@ export const UpdateProfilePicture = () => {
     }
   };
 
+  const handleDelete = () => {
+    var users = JSON.parse(localStorage.getItem("users"));
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover your account!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          "Goodbye!",
+          "Your Account had been deleted. We're sad to see you go!",
+          {
+            icon: "success",
+          }
+        );
+        //filter the users array, leave everything but the user with the user.username
+        users = users.filter((item) => item.username !== user.username);
+        localStorage.setItem("users", JSON.stringify(users));
+        dispatch(logout());
+        navigate("/");
+      } else {
+        swal("Phew!", "Your Account is safe!");
+      }
+    });
+  };
+
   return (
-    <Centered>
-      <div style={{height:"80vh"}} className="p-0 w-11/12 md:w-3/4 mx-auto">
-        <Heading>Update Profile Picture</Heading>
-        <ShadowBox>
-          <div className="md:h-full grid md:grid-cols-5 gap-3">
-            <NavigationBar>
-              <NavBarItem>
-                <Link to="/dashboard" className="text-blue-500">
-                  Home
-                </Link>
-              </NavBarItem>
-              <NavBarItem>
-                <Link to="/settings" className="text-blue-500">
-                  Settings
-                </Link>
-              </NavBarItem>
-              <NavBarItem>
-                <Link to="/chat" className="text-blue-500">
-                  Chat
-                </Link>
-              </NavBarItem>
-              <NavBarItem>
-                <button onClick={(e) => handleLogout(e)}>Log out</button>
-              </NavBarItem>
-            </NavigationBar>
-            <div className="mx-auto md:col-span-4">
-              <div>
-                {!user.profilePicture && !image ? (
-                  <Avatar src={avatar} alt="avatar"></Avatar>
-                ) : !image ? (
-                  <Avatar src={user.profilePicture} alt="profilePic"></Avatar>
-                ) : (
-                  <Avatar src={image} alt="profilePic"></Avatar>
-                )}
-                <div>
-                  <p className="text-sm text-left w-full mb-4 md:mb-0">
-                    Choose your new profile picture
-                  </p>
-                  <input
-                    type="file"
-                    className="inline-block opacity-90 hover:opacity-100 transition-opacity file:w-2/3 file:py-3 file:px-4 file:rounded-md file:border-0 file:bg-blue-500 file:text-white hover:file:cursor-pointer"
-                    accept=".jpg,.jpeg,.png"
-                    onChange={handleImageChange}
-                  />
-                  <button
-                    className="text-center mt-4 px-4 py-3 bg-green-500 w-full rounded-md opacity-90 hover:opacity-100 transition-opacity text-white"
-                    onClick={handleSubmit}
-                  >
-                    Change picture
-                  </button>
-                </div>
-                <div className="mx-auto"></div>
-              </div>
+    <>
+      {/* Drawer */}
+      <div className="drawer-mobile drawer h-full">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div className="drawer-content flex flex-col bg-base-100">
+          <NavBar title="Settings"/>
+          {/* main content */}
+          {/* settings navigation */}
+          <div className="flex w-full flex-col lg:justify-between items-center bg-base-100 lg:flex-row">
+            <NavBarItem>
+              <Link to="/settings">Update profile</Link>
+            </NavBarItem>
+            <NavBarItem className="text-blue-500">
+              <Link to="/updateProfilePicture">Update profile picture</Link>
+            </NavBarItem>
+            <NavBarItem>
+              <Link to="/changePassword"> Change your password </Link>
+            </NavBarItem>
+            <NavBarItem>
+              <button className="text-red-500" onClick={(e) => handleDelete(e)}>
+                Delete Account
+              </button>
+            </NavBarItem>
+          </div>
+          {/* Update Picture form */}
+          <div className="card mx-auto mt-0 w-3/4 border border-gray-200 bg-base-100 px-4 pb-4 shadow-xl md:mt-5 lg:w-1/2">
+            <figure className="py-5 md:px-10 md:py-10">
+              {!user.profilePicture && !image ? (
+                <Avatar src={avatar} alt="avatar"></Avatar>
+              ) : !image ? (
+                <Avatar src={user.profilePicture} alt="profilePic"></Avatar>
+              ) : (
+                <Avatar src={image} alt="profilePic"></Avatar>
+              )}
+            </figure>
+            <div className="">
+                <input
+                  id="file"
+                  type="file"
+                  className="hidden"
+                  accept=".jpg,.jpeg,.png"
+                  onChange={handleImageChange}
+                />
+                <ul className="menu menu-vertical w-full text-base-content ">
+                  <li className="mx-auto mb-3 w-3/4 rounded-xl bg-blue-500 text-white md:w-1/2">
+                    <label className="mx-auto md:px-14" for="file">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="block h-6 w-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                        />
+                      </svg>
+                      <span>Choose a photo</span>
+                    </label>
+                  </li>
+                  <li className="mx-auto mb-10 w-3/4 rounded-xl text-center text-white md:w-1/2">
+                    <button
+                      className="w-full rounded-xl bg-green-500 text-white opacity-90 transition-opacity hover:opacity-100"
+                      onClick={handleSubmit}
+                    >
+                      <span className="w-full text-center">Submit</span>
+                    </button>
+                  </li>
+                </ul>
             </div>
           </div>
-        </ShadowBox>
+        </div>
+        <DrawerContent />
       </div>
-    </Centered>
+    </>
   );
 };
