@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { NavBarItem } from "../../components";
 import { logout } from "../../features/userSlice";
@@ -10,19 +10,42 @@ import { Textfield } from "../textfield/Textfield";
 import { NavBar } from "../navBar/Navbar";
 import { Update } from "../../actions/update";
 import { DrawerContent } from "../drawerContent/DrawerContent";
+import {
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 export const ChangePassword = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "users");
+  const userRef = doc(db, "users", user.username);
 
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+    console.log(users)
+  }, []);
+
+ 
   const handleSubmit = (values) => {
-    var users = JSON.parse(localStorage.getItem("users"));
-    const tempUser = users.find((item) => item.username === user.username);
-    if (values.oldPassword !== tempUser.password) {
+    //var users = JSON.parse(localStorage.getItem("users"));
+    console.log("all users " + users);
+    //const tempUser = users.find((item) => item.username === user.username);
+    console.log(values)
+    if (values.oldPassword !== user.password) {
       swal("Ooops!", "This is not your old password try again", "warning");
     } else {
-      const tempUsers = users.map((obj) => {
+       const tempUsers = users.map((obj) => {
         if (obj.username === user.username) {
           return {
             ...obj,
@@ -31,14 +54,20 @@ export const ChangePassword = () => {
           };
         }
         return obj;
-      });
+      }); 
 
-      users = tempUsers;
+      //localStorage.setItem("users", JSON.stringify(users));
+      const updatePassword = async () => {
+        await updateDoc(userRef, {
+          password: values.password,
+          confirmPassword: values.confirmPassword,
+        });
+      };
 
-      localStorage.setItem("users", JSON.stringify(users));
+      updatePassword()
 
-      const currentUser = users.find((item) => item.username === user.username);
-
+      const currentUser = tempUsers.find((item) => item.username === user.username);
+      console.log("current user: "+currentUser)
       dispatch(Update(currentUser));
       swal("All done", "Your password is now changed", "success");
       navigate("/dashboard");
@@ -56,7 +85,7 @@ export const ChangePassword = () => {
   });
 
   const handleDelete = () => {
-    var users = JSON.parse(localStorage.getItem("users"));
+    //var users = JSON.parse(localStorage.getItem("users"));
 
     swal({
       title: "Are you sure?",
@@ -74,8 +103,10 @@ export const ChangePassword = () => {
           }
         );
         //filter the users array, leave everything but the user with the user.username
-        users = users.filter((item) => item.username !== user.username);
-        localStorage.setItem("users", JSON.stringify(users));
+
+        deleteDoc(doc(db, "users", user.username));
+        //users = users.filter((item) => item.username !== user.username);
+        //localStorage.setItem("users", JSON.stringify(users));
         dispatch(logout());
         navigate("/");
       } else {
@@ -88,12 +119,12 @@ export const ChangePassword = () => {
     <>
       {/* Drawer */}
       <div className="drawer drawer-mobile">
-        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col bg-base-100">
-          <NavBar title="Settings"/>
+          <NavBar title="Settings" />
           {/* main content */}
           {/* settings navigation */}
-          <div className="flex w-full flex-col lg:justify-between items-center bg-base-100 lg:flex-row">
+          <div className="flex w-full flex-col items-center bg-base-100 lg:flex-row lg:justify-between">
             <NavBarItem>
               <Link to="/settings">Update profile</Link>
             </NavBarItem>

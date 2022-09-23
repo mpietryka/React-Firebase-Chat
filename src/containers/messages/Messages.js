@@ -8,7 +8,7 @@ export const Messages = () => {
       <div className="drawer-mobile drawer">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div className="drawer-content flex flex-col bg-base-100">
-          <NavBar title="Messages"/>
+          <NavBar title="Messages" />
           {/* main content here */}
           {/* card */}
           <p className="p-4 text-center font-bold">Chat Here</p>

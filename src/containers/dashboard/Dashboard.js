@@ -11,7 +11,7 @@ export const Dashboard = () => {
     <>
       {/* Drawer */}
       <div className="drawer-mobile drawer">
-        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col bg-base-100">
           <NavBar title="Home" />
           {/* main content here */}

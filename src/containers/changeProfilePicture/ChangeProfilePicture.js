@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { NavBarItem, Avatar } from "../../components";
 import { logout } from "../../features/userSlice";
@@ -8,12 +8,31 @@ import avatar from "../dashboard/generic-avatar-1.png";
 import { Update } from "../../actions/update";
 import { NavBar } from "../navBar/Navbar";
 import { DrawerContent } from "../drawerContent/DrawerContent";
+import {
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 export const UpdateProfilePicture = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "users");
+  const userRef = doc(db, "users", user.username);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+  }, []);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -26,7 +45,7 @@ export const UpdateProfilePicture = () => {
   };
 
   const handleSubmit = () => {
-    var users = JSON.parse(localStorage.getItem("users"));
+    //var users = JSON.parse(localStorage.getItem("users"));
     if (!image) {
       swal(
         "You have not uploaded anything",
@@ -41,10 +60,14 @@ export const UpdateProfilePicture = () => {
         return obj;
       });
 
-      users = tempUsers;
-      localStorage.setItem("users", JSON.stringify(users));
+      //localStorage.setItem("users", JSON.stringify(users));
+      const updatePic = async () => {
+        await updateDoc(userRef, { profilePicture: image });
+      };
+      
+      updatePic();
 
-      const currentUser = users.find((item) => item.username === user.username);
+      const currentUser = tempUsers.find((item) => item.username === user.username);
 
       dispatch(Update(currentUser));
       swal("All done", "Your profile picture was updated", "success");
@@ -53,7 +76,7 @@ export const UpdateProfilePicture = () => {
   };
 
   const handleDelete = () => {
-    var users = JSON.parse(localStorage.getItem("users"));
+    //var users = JSON.parse(localStorage.getItem("users"));
 
     swal({
       title: "Are you sure?",
@@ -71,8 +94,10 @@ export const UpdateProfilePicture = () => {
           }
         );
         //filter the users array, leave everything but the user with the user.username
-        users = users.filter((item) => item.username !== user.username);
-        localStorage.setItem("users", JSON.stringify(users));
+
+        deleteDoc(doc(db, "users", user.username));
+        //users = users.filter((item) => item.username !== user.username);
+        //localStorage.setItem("users", JSON.stringify(users));
         dispatch(logout());
         navigate("/");
       } else {
@@ -85,12 +110,12 @@ export const UpdateProfilePicture = () => {
     <>
       {/* Drawer */}
       <div className="drawer-mobile drawer h-full">
-        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col bg-base-100">
-          <NavBar title="Settings"/>
+          <NavBar title="Settings" />
           {/* main content */}
           {/* settings navigation */}
-          <div className="flex w-full flex-col lg:justify-between items-center bg-base-100 lg:flex-row">
+          <div className="flex w-full flex-col items-center bg-base-100 lg:flex-row lg:justify-between">
             <NavBarItem>
               <Link to="/settings">Update profile</Link>
             </NavBarItem>
@@ -118,42 +143,42 @@ export const UpdateProfilePicture = () => {
               )}
             </figure>
             <div className="">
-                <input
-                  id="file"
-                  type="file"
-                  className="hidden"
-                  accept=".jpg,.jpeg,.png"
-                  onChange={handleImageChange}
-                />
-                <ul className="menu menu-vertical w-full text-base-content ">
-                  <li className="mx-auto mb-3 w-3/4 rounded-xl bg-blue-500 text-white md:w-1/2">
-                    <label className="mx-auto md:px-14" for="file">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="block h-6 w-6"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                        />
-                      </svg>
-                      <span>Choose a photo</span>
-                    </label>
-                  </li>
-                  <li className="mx-auto mb-10 w-3/4 rounded-xl text-center text-white md:w-1/2">
-                    <button
-                      className="w-full rounded-xl bg-green-500 text-white opacity-90 transition-opacity hover:opacity-100"
-                      onClick={handleSubmit}
+              <input
+                id="file"
+                type="file"
+                className="hidden"
+                accept=".jpg,.jpeg,.png"
+                onChange={handleImageChange}
+              />
+              <ul className="menu menu-vertical w-full text-base-content ">
+                <li className="mx-auto mb-3 w-3/4 rounded-xl bg-blue-500 text-white md:w-1/2">
+                  <label className="mx-auto md:px-14" htmlFor="file">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="block h-6 w-6"
                     >
-                      <span className="w-full text-center">Submit</span>
-                    </button>
-                  </li>
-                </ul>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                      />
+                    </svg>
+                    <span>Choose a photo</span>
+                  </label>
+                </li>
+                <li className="mx-auto mb-10 w-3/4 rounded-xl text-center text-white md:w-1/2">
+                  <button
+                    className="w-full rounded-xl bg-green-500 text-white opacity-90 transition-opacity hover:opacity-100"
+                    onClick={handleSubmit}
+                  >
+                    <span className="w-full text-center">Submit</span>
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

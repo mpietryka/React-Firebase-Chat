@@ -13,8 +13,14 @@ import {
 } from "../../components";
 import { useDispatch } from "react-redux";
 import { Login } from "../../actions/auth";
+import { useState, useEffect } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 export const LoginForm = () => {
+  //const [found, setfound] = useState();
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, 'users');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,9 +29,36 @@ export const LoginForm = () => {
     password: Yup.string().required("Please enter your password"),
   });
 
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+    
+  }, []);
+ 
   const handleSubmit = (values) => {
-    const users = JSON.parse(localStorage.getItem("users"));
+/*     // LOCALSTORAGE
+    //const users = JSON.parse(localStorage.getItem("users")); */
     const user = users.find((item) => item.username === values.username);
+    
+    /*     const FindByUsername = async () => {
+      //const usersCollectionRef = doc(db, "users", values.username);
+      const docSnap = await getDoc(usersCollectionRef);
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setfound(docSnap.data());
+      } else {
+        //setfound(null);
+        console.log("No document with this username");
+      }
+      setfound(docSnap.data())
+    };
+    FindByUsername(); */
+
+    console.log(user);
+
     if (!user) {
       swal("Oops! the user doesn't exist", "Try again", "error");
     } else if (values.password !== user.password) {
@@ -41,9 +74,9 @@ export const LoginForm = () => {
   };
 
   return (
-<div class="flex items-center h-screen w-full">
+    <div className="flex h-screen w-full items-center">
       <MainContainer>
-      <Heading>LOG IN TO YOUR ACCOUNT</Heading>
+        <Heading>LOG IN TO YOUR ACCOUNT</Heading>
         <FormBox>
           <Formik
             initialValues={{
@@ -76,7 +109,6 @@ export const LoginForm = () => {
           </Formik>
         </FormBox>
       </MainContainer>
-
     </div>
   );
 };
