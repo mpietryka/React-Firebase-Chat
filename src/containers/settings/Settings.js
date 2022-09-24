@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { NavBarItem } from "../../components";
+import { NavBarItem, Semibold, Btn } from "../../components";
 import { logout } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form } from "formik";
@@ -18,8 +18,6 @@ import {
   collection,
 } from "firebase/firestore";
 import { db } from "../../firebase-config";
-
-
 
 export const Settings = () => {
   const user = useSelector((state) => state.user);
@@ -53,13 +51,13 @@ export const Settings = () => {
     });
 
     const updateDetails = async () => {
-      await updateDoc(userRef, { 
+      await updateDoc(userRef, {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
-       });
+      });
     };
-    updateDetails()
+    updateDetails();
 
     /*     //LOCALSTORAGE 
     //users = tempUsers;
@@ -67,7 +65,9 @@ export const Settings = () => {
     */
 
     //update Redux store
-    const currentUser = tempUsers.find((item) => item.username === user.username);
+    const currentUser = tempUsers.find(
+      (item) => item.username === user.username
+    );
     dispatch(Update(currentUser));
     swal("All done", "Your details were updated", "success");
     navigate("/dashboard");
@@ -157,15 +157,9 @@ export const Settings = () => {
                 <Textfield label="Last Name" name="lastName" type="text" />
                 <Textfield label="Email" name="email" type="email" />
 
-                <ul className="menu w-full bg-gray-100 text-center text-base-content ">
-                  <li className="w-full rounded-xl bg-blue-500 text-white">
-                    <button type="submit">
-                      <label className="w-full text-center font-semibold">
-                        Submit
-                      </label>
-                    </button>
-                  </li>
-                </ul>
+                <Btn type="submit">
+                  <Semibold>Submit</Semibold>
+                </Btn>
               </Form>
             </Formik>
           </div>

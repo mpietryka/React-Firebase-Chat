@@ -64,10 +64,12 @@ export const UpdateProfilePicture = () => {
       const updatePic = async () => {
         await updateDoc(userRef, { profilePicture: image });
       };
-      
+
       updatePic();
 
-      const currentUser = tempUsers.find((item) => item.username === user.username);
+      const currentUser = tempUsers.find(
+        (item) => item.username === user.username
+      );
 
       dispatch(Update(currentUser));
       swal("All done", "Your profile picture was updated", "success");

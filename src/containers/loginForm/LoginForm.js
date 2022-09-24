@@ -20,7 +20,7 @@ import { db } from "../../firebase-config";
 export const LoginForm = () => {
   //const [found, setfound] = useState();
   const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(db, 'users');
+  const usersCollectionRef = collection(db, "users");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -35,14 +35,13 @@ export const LoginForm = () => {
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getUsers();
-    
   }, []);
- 
+
   const handleSubmit = (values) => {
-/*     // LOCALSTORAGE
+    /*     // LOCALSTORAGE
     //const users = JSON.parse(localStorage.getItem("users")); */
     const user = users.find((item) => item.username === values.username);
-    
+
     /*     const FindByUsername = async () => {
       //const usersCollectionRef = doc(db, "users", values.username);
       const docSnap = await getDoc(usersCollectionRef);

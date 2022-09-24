@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { NavBarItem } from "../../components";
+import { NavBarItem, Btn, Semibold } from "../../components";
 import { logout } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
@@ -33,19 +33,18 @@ export const ChangePassword = () => {
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getUsers();
-    console.log(users)
   }, []);
 
- 
   const handleSubmit = (values) => {
+
+    /*      LOCALSTORAGE
     //var users = JSON.parse(localStorage.getItem("users"));
-    console.log("all users " + users);
-    //const tempUser = users.find((item) => item.username === user.username);
-    console.log(values)
+    //const tempUser = users.find((item) => item.username === user.username); 
+    */
     if (values.oldPassword !== user.password) {
       swal("Ooops!", "This is not your old password try again", "warning");
     } else {
-       const tempUsers = users.map((obj) => {
+      const tempUsers = users.map((obj) => {
         if (obj.username === user.username) {
           return {
             ...obj,
@@ -54,7 +53,7 @@ export const ChangePassword = () => {
           };
         }
         return obj;
-      }); 
+      });
 
       //localStorage.setItem("users", JSON.stringify(users));
       const updatePassword = async () => {
@@ -64,10 +63,12 @@ export const ChangePassword = () => {
         });
       };
 
-      updatePassword()
+      updatePassword();
 
-      const currentUser = tempUsers.find((item) => item.username === user.username);
-      console.log("current user: "+currentUser)
+      const currentUser = tempUsers.find(
+        (item) => item.username === user.username
+      );
+      console.log("current user: " + currentUser);
       dispatch(Update(currentUser));
       swal("All done", "Your password is now changed", "success");
       navigate("/dashboard");
@@ -85,7 +86,8 @@ export const ChangePassword = () => {
   });
 
   const handleDelete = () => {
-    //var users = JSON.parse(localStorage.getItem("users"));
+/*     // LOCALSTORAGE
+    //var users = JSON.parse(localStorage.getItem("users")); */
 
     swal({
       title: "Are you sure?",
@@ -105,8 +107,9 @@ export const ChangePassword = () => {
         //filter the users array, leave everything but the user with the user.username
 
         deleteDoc(doc(db, "users", user.username));
+/*         // LOCALSTORAGE
         //users = users.filter((item) => item.username !== user.username);
-        //localStorage.setItem("users", JSON.stringify(users));
+        //localStorage.setItem("users", JSON.stringify(users)); */
         dispatch(logout());
         navigate("/");
       } else {
@@ -165,15 +168,9 @@ export const ChangePassword = () => {
                   name="confirmPassword"
                   type="password"
                 />
-                <ul className="menu w-full bg-gray-100 text-center text-base-content ">
-                  <li className="w-full rounded-xl bg-blue-500 text-white">
-                    <button type="submit">
-                      <label className="w-full text-center font-semibold">
-                        Submit
-                      </label>
-                    </button>
-                  </li>
-                </ul>
+                <Btn type="submit">
+                  <Semibold>Submit</Semibold>
+                </Btn>
               </Form>
             </Formik>
           </div>
