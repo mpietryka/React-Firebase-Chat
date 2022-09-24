@@ -62,7 +62,7 @@ export const RegisterForm = () => {
     //if array not in localStorage initialise empty array
     //const usersCollectionRef = doc(db, "users", values.username);
 
-    /*     // LOCALSTORAGE VERSION
+    /*     // LOCALSTORAGE 
     if (localStorage.getItem("users") === null) {
       users = [];
     } else {
@@ -98,7 +98,7 @@ export const RegisterForm = () => {
       //add to firestore
       setDoc(doc(db, "users", values.username), newUser);
 
-      /*       //LOCALSTORAGE Version
+      /*       //LOCALSTORAGE 
       users.push(values);
       localStorage.setItem("users", JSON.stringify(users)); 
       */
@@ -138,7 +138,7 @@ export const RegisterForm = () => {
               name="confirmPassword"
               type="password"
             />
-            <Btn type="submit">
+            <Btn className="bg-blue-500" type="submit">
               <Semibold>REGISTER</Semibold>
             </Btn>
             <p className=" mt-5 flex justify-between font-light">

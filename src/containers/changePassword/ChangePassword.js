@@ -68,7 +68,6 @@ export const ChangePassword = () => {
       const currentUser = tempUsers.find(
         (item) => item.username === user.username
       );
-      console.log("current user: " + currentUser);
       dispatch(Update(currentUser));
       swal("All done", "Your password is now changed", "success");
       navigate("/dashboard");
@@ -168,7 +167,7 @@ export const ChangePassword = () => {
                   name="confirmPassword"
                   type="password"
                 />
-                <Btn type="submit">
+                <Btn className="bg-blue-500" type="submit">
                   <Semibold>Submit</Semibold>
                 </Btn>
               </Form>

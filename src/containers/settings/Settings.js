@@ -157,7 +157,7 @@ export const Settings = () => {
                 <Textfield label="Last Name" name="lastName" type="text" />
                 <Textfield label="Email" name="email" type="email" />
 
-                <Btn type="submit">
+                <Btn className="bg-blue-500" type="submit">
                   <Semibold>Submit</Semibold>
                 </Btn>
               </Form>

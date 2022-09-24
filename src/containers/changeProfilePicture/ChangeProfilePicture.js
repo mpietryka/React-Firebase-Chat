@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { NavBarItem, Avatar } from "../../components";
+import { NavBarItem, Avatar, Btn, Semibold } from "../../components";
 import { logout } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
@@ -145,7 +145,7 @@ export const UpdateProfilePicture = () => {
                 <Avatar src={image} alt="profilePic"></Avatar>
               )}
             </figure>
-            <div className="">
+            <div>
               <input
                 id="file"
                 type="file"
@@ -153,9 +153,12 @@ export const UpdateProfilePicture = () => {
                 accept=".jpg,.jpeg,.png"
                 onChange={handleImageChange}
               />
-              <ul className="menu menu-vertical w-full text-base-content ">
-                <li className="mx-auto mb-3 w-3/4 rounded-xl bg-blue-500 text-white md:w-1/2">
-                  <label className="mx-auto md:px-14" htmlFor="file">
+              <div className="mx-auto w-3/4">
+                <div className="mb-3 text-white ">
+                  <label
+                    className="mt-2 flex w-full cursor-pointer flex-row justify-center rounded-xl bg-blue-500 px-4 py-3 text-center text-white opacity-90 transition-opacity hover:opacity-100"
+                    htmlFor="file"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -170,18 +173,13 @@ export const UpdateProfilePicture = () => {
                         d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
                       />
                     </svg>
-                    <span>Choose a photo</span>
+                    <span className="ml-1">Choose a photo</span>
                   </label>
-                </li>
-                <li className="mx-auto mb-10 w-3/4 rounded-xl text-center text-white md:w-1/2">
-                  <button
-                    className="w-full rounded-xl bg-green-500 text-white opacity-90 transition-opacity hover:opacity-100"
-                    onClick={handleSubmit}
-                  >
-                    <span className="w-full text-center">Submit</span>
-                  </button>
-                </li>
-              </ul>
+                </div>
+                <Btn className="bg-green-500" onClick={handleSubmit}>
+                  <Semibold>Submit</Semibold>
+                </Btn>
+              </div>
             </div>
           </div>
         </div>

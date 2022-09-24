@@ -56,8 +56,6 @@ export const LoginForm = () => {
     };
     FindByUsername(); */
 
-    console.log(user);
-
     if (!user) {
       swal("Oops! the user doesn't exist", "Try again", "error");
     } else if (values.password !== user.password) {
@@ -91,7 +89,7 @@ export const LoginForm = () => {
             <Form>
               <Textfield label="Username" name="username" type="text" />
               <Textfield label="Password" name="password" type="password" />
-              <Btn type="submit">
+              <Btn className="bg-blue-500" type="submit">
                 <Semibold>SIGN-IN</Semibold>
               </Btn>
 

@@ -42,7 +42,6 @@ export const DrawerContent = () => {
             <span className="py-2 font-semibold text-blue-500">Home</span>
           </Link>
         </li>
-
         <li>
           <Link to="/messages">
             <svg
@@ -86,7 +85,7 @@ export const DrawerContent = () => {
             <span className="py-2 font-semibold text-blue-500">Settings</span>
           </Link>
         </li>
-        <li className="mx-auto w-11/12 rounded-xl bg-blue-500 text-white">
+        <li className="mx-auto mt-2 w-11/12 rounded-xl bg-blue-500 text-white">
           <button onClick={(e) => handleLogout(e)}>
             <label className="mx-auto text-center font-semibold">Log out</label>
           </button>

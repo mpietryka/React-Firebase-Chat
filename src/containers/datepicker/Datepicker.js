@@ -2,7 +2,6 @@ import React from "react";
 import { Field, ErrorMessage } from "formik";
 import DatePicker from "react-datepicker";
 import { ErrorMsg } from "../../components";
-
 import "react-datepicker/dist/react-datepicker.css";
 
 export const Datepicker = ({ label, ...props }) => {
