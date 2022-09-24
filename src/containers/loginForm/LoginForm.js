@@ -18,7 +18,6 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
 export const LoginForm = () => {
-  //const [found, setfound] = useState();
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
   const dispatch = useDispatch();
@@ -38,23 +37,8 @@ export const LoginForm = () => {
   }, []);
 
   const handleSubmit = (values) => {
-    /*     // LOCALSTORAGE
-    //const users = JSON.parse(localStorage.getItem("users")); */
-    const user = users.find((item) => item.username === values.username);
 
-    /*     const FindByUsername = async () => {
-      //const usersCollectionRef = doc(db, "users", values.username);
-      const docSnap = await getDoc(usersCollectionRef);
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setfound(docSnap.data());
-      } else {
-        //setfound(null);
-        console.log("No document with this username");
-      }
-      setfound(docSnap.data())
-    };
-    FindByUsername(); */
+    const user = users.find((item) => item.username === values.username);
 
     if (!user) {
       swal("Oops! the user doesn't exist", "Try again", "error");

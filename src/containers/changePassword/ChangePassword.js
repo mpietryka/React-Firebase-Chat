@@ -36,10 +36,6 @@ export const ChangePassword = () => {
   }, []);
 
   const handleSubmit = (values) => {
-    /*      LOCALSTORAGE
-    var users = JSON.parse(localStorage.getItem("users"));
-    const tempUser = users.find((item) => item.username === user.username); 
-    */
 
     if (values.oldPassword !== user.password) {
       swal("Ooops!", "This is not your old password try again", "warning");
@@ -55,7 +51,6 @@ export const ChangePassword = () => {
         return obj;
       });
 
-      //localStorage.setItem("users", JSON.stringify(users));
       const updatePassword = async () => {
         await updateDoc(userRef, {
           password: values.password,
@@ -64,10 +59,10 @@ export const ChangePassword = () => {
       };
 
       updatePassword();
-
       const currentUser = tempUsers.find(
         (item) => item.username === user.username
       );
+
       dispatch(Update(currentUser));
       swal("All done", "Your password is now changed", "success");
       navigate("/dashboard");
@@ -85,8 +80,6 @@ export const ChangePassword = () => {
   });
 
   const handleDelete = () => {
-    /*     // LOCALSTORAGE
-    //var users = JSON.parse(localStorage.getItem("users")); */
 
     swal({
       title: "Are you sure?",
@@ -103,12 +96,9 @@ export const ChangePassword = () => {
             icon: "success",
           }
         );
-        //filter the users array, leave everything but the user with the user.username
 
         deleteDoc(doc(db, "users", user.username));
-        /*         // LOCALSTORAGE
-        //users = users.filter((item) => item.username !== user.username);
-        //localStorage.setItem("users", JSON.stringify(users)); */
+
         dispatch(logout());
         navigate("/");
       } else {

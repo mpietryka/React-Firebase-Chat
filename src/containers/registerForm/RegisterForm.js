@@ -18,7 +18,6 @@ import {
 
 export const RegisterForm = () => {
   const navigate = useNavigate();
-  //const [found, setfound] = useState();
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
 
@@ -59,28 +58,6 @@ export const RegisterForm = () => {
   });
 
   const handleSubmit = (values) => {
-    //if array not in localStorage initialise empty array
-    //const usersCollectionRef = doc(db, "users", values.username);
-
-    /*     // LOCALSTORAGE 
-    if (localStorage.getItem("users") === null) {
-      users = [];
-    } else {
-      users = JSON.parse(localStorage.getItem("users"));
-    } */
-
-    /*     //find username in firestore
-    const FindByUsername = async () => {
-      const docSnap = await getDoc(usersCollectionRef);
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setfound(docSnap.data());
-      } else {
-        setfound(null);
-        console.log("No document with this username");
-      }
-    };
-    FindByUsername(); */
 
     const findByUsername = users.find(
       (item) => item.username === values.username
@@ -93,15 +70,12 @@ export const RegisterForm = () => {
         "warning"
       );
     } else {
+
       //new object with formik values
       const newUser = JSON.parse(JSON.stringify(values));
       //add to firestore
       setDoc(doc(db, "users", values.username), newUser);
-
-      /*       //LOCALSTORAGE 
-      users.push(values);
-      localStorage.setItem("users", JSON.stringify(users)); 
-      */
+      users.push(values); 
       navigate("/");
     }
   };

@@ -37,7 +37,7 @@ export const Settings = () => {
   }, []);
 
   const handleSubmit = (values) => {
-    //var users = JSON.parse(localStorage.getItem("users"));
+
     const tempUsers = users.map((obj) => {
       if (obj.username === user.username) {
         return {
@@ -59,11 +59,6 @@ export const Settings = () => {
     };
     updateDetails();
 
-    /*     //LOCALSTORAGE 
-    //users = tempUsers;
-    //localStorage.setItem("users", JSON.stringify(users)); 
-    */
-
     //update Redux store
     const currentUser = tempUsers.find(
       (item) => item.username === user.username
@@ -84,7 +79,6 @@ export const Settings = () => {
   });
 
   const handleDelete = () => {
-    //var users = JSON.parse(localStorage.getItem("users"));
 
     swal({
       title: "Are you sure?",
@@ -101,11 +95,8 @@ export const Settings = () => {
             icon: "success",
           }
         );
-        //filter the users array, leave everything but the user with the user.username
 
         deleteDoc(doc(db, "users", user.username));
-        //users = users.filter((item) => item.username !== user.username);
-        //localStorage.setItem("users", JSON.stringify(users));
         dispatch(logout());
         navigate("/");
       } else {

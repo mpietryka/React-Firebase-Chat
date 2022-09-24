@@ -45,7 +45,6 @@ export const UpdateProfilePicture = () => {
   };
 
   const handleSubmit = () => {
-    //var users = JSON.parse(localStorage.getItem("users"));
     if (!image) {
       swal(
         "You have not uploaded anything",
@@ -60,7 +59,6 @@ export const UpdateProfilePicture = () => {
         return obj;
       });
 
-      //localStorage.setItem("users", JSON.stringify(users));
       const updatePic = async () => {
         await updateDoc(userRef, { profilePicture: image });
       };
@@ -78,7 +76,6 @@ export const UpdateProfilePicture = () => {
   };
 
   const handleDelete = () => {
-    //var users = JSON.parse(localStorage.getItem("users"));
 
     swal({
       title: "Are you sure?",
@@ -95,12 +92,8 @@ export const UpdateProfilePicture = () => {
             icon: "success",
           }
         );
-        //filter the users array, leave everything but the user with the user.username
 
         deleteDoc(doc(db, "users", user.username));
-        /*         // LOCALSTORAGE
-        //users = users.filter((item) => item.username !== user.username);
-        //localStorage.setItem("users", JSON.stringify(users)); */
         dispatch(logout());
         navigate("/");
       } else {
