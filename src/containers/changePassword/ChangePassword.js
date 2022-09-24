@@ -36,11 +36,11 @@ export const ChangePassword = () => {
   }, []);
 
   const handleSubmit = (values) => {
-
     /*      LOCALSTORAGE
-    //var users = JSON.parse(localStorage.getItem("users"));
-    //const tempUser = users.find((item) => item.username === user.username); 
+    var users = JSON.parse(localStorage.getItem("users"));
+    const tempUser = users.find((item) => item.username === user.username); 
     */
+
     if (values.oldPassword !== user.password) {
       swal("Ooops!", "This is not your old password try again", "warning");
     } else {
@@ -86,7 +86,7 @@ export const ChangePassword = () => {
   });
 
   const handleDelete = () => {
-/*     // LOCALSTORAGE
+    /*     // LOCALSTORAGE
     //var users = JSON.parse(localStorage.getItem("users")); */
 
     swal({
@@ -107,7 +107,7 @@ export const ChangePassword = () => {
         //filter the users array, leave everything but the user with the user.username
 
         deleteDoc(doc(db, "users", user.username));
-/*         // LOCALSTORAGE
+        /*         // LOCALSTORAGE
         //users = users.filter((item) => item.username !== user.username);
         //localStorage.setItem("users", JSON.stringify(users)); */
         dispatch(logout());

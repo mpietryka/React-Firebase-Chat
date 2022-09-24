@@ -98,8 +98,9 @@ export const UpdateProfilePicture = () => {
         //filter the users array, leave everything but the user with the user.username
 
         deleteDoc(doc(db, "users", user.username));
+        /*         // LOCALSTORAGE
         //users = users.filter((item) => item.username !== user.username);
-        //localStorage.setItem("users", JSON.stringify(users));
+        //localStorage.setItem("users", JSON.stringify(users)); */
         dispatch(logout());
         navigate("/");
       } else {

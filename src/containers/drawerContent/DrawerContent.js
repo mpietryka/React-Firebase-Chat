@@ -16,10 +16,11 @@ export const DrawerContent = () => {
   return (
     <div className="drawer-side border-r ">
       <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-
       <ul className="menu w-80 overflow-y-auto bg-gray-100 text-base-content">
         <li>
-          <p className="m-3 text-3xl font-bold">LOGO</p>
+          <Link to="/dashboard">
+            <p className="m-3 text-3xl font-bold">LOGO</p>
+          </Link>
         </li>
         <li>
           <Link to="/dashboard">
