@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { logout } from "../../features/userSlice";
 
-export const DrawerContent = () => {
+export const DrawerContent = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ export const DrawerContent = () => {
             <p className="m-3 text-3xl font-bold">LOGO</p>
           </Link>
         </li>
-        <li>
+        <li className={props.home}>
           <Link to="/dashboard">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ export const DrawerContent = () => {
             <span className="py-2 font-semibold text-blue-500">Home</span>
           </Link>
         </li>
-        <li>
+        <li className={props.messages}>
           <Link to="/messages">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ export const DrawerContent = () => {
             <span className="py-2 font-semibold text-blue-500">Messages</span>
           </Link>
         </li>
-        <li>
+        <li className={props.sett}>
           <Link to="/settings">
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -58,7 +58,6 @@ export const RegisterForm = () => {
   });
 
   const handleSubmit = (values) => {
-
     const findByUsername = users.find(
       (item) => item.username === values.username
     );
@@ -70,12 +69,11 @@ export const RegisterForm = () => {
         "warning"
       );
     } else {
-
       //new object with formik values
       const newUser = JSON.parse(JSON.stringify(values));
       //add to firestore
       setDoc(doc(db, "users", values.username), newUser);
-      users.push(values); 
+      users.push(values);
       navigate("/");
     }
   };

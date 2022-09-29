@@ -37,7 +37,6 @@ export const Settings = () => {
   }, []);
 
   const handleSubmit = (values) => {
-
     const tempUsers = users.map((obj) => {
       if (obj.username === user.username) {
         return {
@@ -79,7 +78,6 @@ export const Settings = () => {
   });
 
   const handleDelete = () => {
-
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover your account!",
@@ -155,7 +153,7 @@ export const Settings = () => {
             </Formik>
           </div>
         </div>
-        <DrawerContent />
+        <DrawerContent sett="bordered" />
       </div>
     </>
   );

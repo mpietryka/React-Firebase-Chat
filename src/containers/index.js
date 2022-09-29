@@ -6,6 +6,9 @@ export { UpdateProfilePicture } from "./changeProfilePicture/ChangeProfilePictur
 export { ChangePassword } from "./changePassword/ChangePassword";
 export { RegisterForm } from "./registerForm/RegisterForm";
 export { Messages } from "./messages/Messages";
+export { MessageForm } from "./messages/MessageForm";
+export { UserList } from "./messages/UserList";
 export { Settings } from "./settings/Settings";
 export { NavBar } from "./navBar/Navbar";
 export { DrawerContent } from "./drawerContent/DrawerContent";
+export { ChatUI } from "./messages/ChatUI";

@@ -32,7 +32,7 @@ export const Dashboard = () => {
             </div>
           </div>
         </div>
-        <DrawerContent />
+        <DrawerContent home="bordered" />
       </div>
     </>
   );

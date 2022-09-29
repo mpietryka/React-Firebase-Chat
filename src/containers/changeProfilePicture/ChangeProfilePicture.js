@@ -76,7 +76,6 @@ export const UpdateProfilePicture = () => {
   };
 
   const handleDelete = () => {
-
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover your account!",
@@ -176,7 +175,7 @@ export const UpdateProfilePicture = () => {
             </div>
           </div>
         </div>
-        <DrawerContent />
+        <DrawerContent sett="bordered" />
       </div>
     </>
   );

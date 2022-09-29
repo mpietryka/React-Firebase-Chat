@@ -36,7 +36,6 @@ export const ChangePassword = () => {
   }, []);
 
   const handleSubmit = (values) => {
-
     if (values.oldPassword !== user.password) {
       swal("Ooops!", "This is not your old password try again", "warning");
     } else {
@@ -80,7 +79,6 @@ export const ChangePassword = () => {
   });
 
   const handleDelete = () => {
-
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover your account!",
@@ -164,7 +162,7 @@ export const ChangePassword = () => {
             </Formik>
           </div>
         </div>
-        <DrawerContent />
+        <DrawerContent sett="bordered" />
       </div>
     </>
   );
