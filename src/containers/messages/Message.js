@@ -16,7 +16,7 @@ export const Message = ({ msg, user1 }) => {
       ref={scrollRef}
     >
       <p
-        className={`border-1 inline-block max-w-md rounded-xl border border-gray-400 px-3 py-2 text-left  ${
+        className={`border-1 inline-block max-w-md rounded-xl border border-gray-300 px-3 py-2 text-left  ${
           msg.from === user1 ? `bg-blue-500` : `bg-base-200`
         }`}
       >

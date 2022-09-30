@@ -106,7 +106,7 @@ export const Messages = () => {
           {/* UserList Section */}
           <div className="relative flex flex-grow">
             <div className="md:grid w-full md:grid-cols-4">
-              <div className="border-1 md:col-span-1 md:h-full md:border">
+              <div className="border-1 md:col-span-1 md:h-full md:border-r">
                 <div className="flex flex-row md:flex-col sticky top-16">
                   {users.map((user) => (
                     <UserList
