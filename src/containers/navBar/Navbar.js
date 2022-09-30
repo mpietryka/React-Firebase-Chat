@@ -5,7 +5,7 @@ export const NavBar = (props) => {
   const user = useSelector((state) => state.user);
 
   return (
-    <div className="border-1 navbar border border-gray-100 bg-base-100">
+    <div className="border-1 navbar sticky top-0 z-50 border border-gray-100 bg-base-100">
       {/* Hamburger button*/}
       <div className="flex-none">
         <label

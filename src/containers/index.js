@@ -11,4 +11,3 @@ export { UserList } from "./messages/UserList";
 export { Settings } from "./settings/Settings";
 export { NavBar } from "./navBar/Navbar";
 export { DrawerContent } from "./drawerContent/DrawerContent";
-export { ChatUI } from "./messages/ChatUI";
