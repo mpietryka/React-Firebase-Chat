@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { NavBar } from "../navBar/Navbar";
 import { DrawerContent } from "../drawerContent/DrawerContent";

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import avatar from "../dashboard/generic-avatar-1.png";
 import { Avatar } from "../../components/avatar/Avatar";
