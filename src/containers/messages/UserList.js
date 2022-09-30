@@ -19,7 +19,7 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
 
   return (
     <div
-      className={`flex w-full cursor-pointer flex-row p-2 hover:bg-base-300 ${
+      className={`flex md:w-full cursor-pointer flex-row p-2 hover:bg-base-300 ${
         chat.username === user.username && `bg-base-200`
       }`}
       onClick={() => selectUser(user)}

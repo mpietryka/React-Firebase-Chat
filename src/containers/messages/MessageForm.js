@@ -5,7 +5,7 @@ export const MessageForm = ({ handleSubmit, text, setText }) => {
     <div>
       {/*text area */}
       <form onSubmit={handleSubmit}>
-        <div className="flex w-full flex-row">
+        <div className="sticky botton-0 z-50 flex w-full flex-row">
           <input
             type="text"
             value={text}

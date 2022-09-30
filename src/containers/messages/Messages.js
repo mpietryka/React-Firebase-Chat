@@ -104,9 +104,9 @@ export const Messages = () => {
           <NavBar title="Messages" />
           {/* UserList Section */}
           <div className="relative flex flex-grow">
-            <div className="grid w-full grid-cols-4">
-              <div className="border-1 col-span-1 h-full border">
-                <div className="sticky top-16">
+            <div className="md:grid w-full md:grid-cols-4">
+              <div className="border-1 md:col-span-1 md:h-full md:border">
+                <div className="flex flex-row md:flex-col sticky top-16">
                   {users.map((user) => (
                     <UserList
                       key={user.username}
@@ -119,11 +119,11 @@ export const Messages = () => {
                 </div>
               </div>
               {/* Chat Section */}
-              <div className="col-span-3 bg-base-100 pb-8">
+              <div className="md:col-span-3 bg-base-100 pb-8">
                 <div className="h-full">
                   {chat ? (
                     <div className="sticky top-16 z-50 h-20 w-full bg-base-200 p-6">
-                      <p className="text-center text-xl font-semibold">
+                      <p className="text-left text-xl font-semibold">
                         {chat.firstName} {chat.lastName}
                       </p>
                     </div>
@@ -134,7 +134,8 @@ export const Messages = () => {
                       </p>
                     </div>
                   )}
-                  <div className="">
+                  
+                  <div>
                     {msgs.length
                       ? msgs.map((msg, i) => (
                           <Message
@@ -145,7 +146,7 @@ export const Messages = () => {
                         ))
                       : null}
                   </div>
-                  <div className="fixed bottom-0 my-4 mx-8 w-6/12">
+                  <div className="fixed bottom-0 my-4 mx-8 w-10/12 md:w-6/12">
                     <MessageForm
                       handleSubmit={handleSubmit}
                       text={text}

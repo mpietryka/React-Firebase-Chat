@@ -16,13 +16,13 @@ export const Message = ({ msg, user1 }) => {
       ref={scrollRef}
     >
       <p
-        className={`border-1 inline-block max-w-md rounded-xl border border-gray-400 p-4 text-left  ${
+        className={`border-1 inline-block max-w-md rounded-xl border border-gray-400 px-3 py-2 text-left  ${
           msg.from === user1 ? `bg-blue-500` : `bg-base-200`
         }`}
       >
         {msg.text}
         <br />
-        <small className="mt-1 inline-block text-left font-light">
+        <small className="inline-block text-left font-light">
           <Moment fromNow>{msg.sentAt.toDate()}</Moment>
         </small>
       </p>
