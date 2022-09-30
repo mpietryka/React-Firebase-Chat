@@ -122,13 +122,13 @@ export const Messages = () => {
               <div className="md:col-span-3 bg-base-100 pb-8">
                 <div className="h-full">
                   {chat ? (
-                    <div className="sticky top-16 z-50 h-20 w-full bg-base-200 p-6">
+                    <div className="sticky top-16 z-50 h-20 w-full bg-gray-100 p-6">
                       <p className="text-left text-xl font-semibold">
                         {chat.firstName} {chat.lastName}
                       </p>
                     </div>
                   ) : (
-                    <div className="sticky top-16 z-50 h-20 w-full bg-base-200 p-6">
+                    <div className="sticky top-16 z-50 h-20 w-full bg-gray-100 p-6">
                       <p className="text-center text-xl font-semibold">
                         Select a User
                       </p>
@@ -151,7 +151,7 @@ export const Messages = () => {
                       handleSubmit={handleSubmit}
                       text={text}
                       setText={setText}
-                    />
+                      />
                   </div>
                 </div>
               </div>
