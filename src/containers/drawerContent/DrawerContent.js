@@ -86,7 +86,7 @@ export const DrawerContent = (props) => {
           </Link>
         </li>
         <li className="mx-auto mt-2 w-11/12 rounded-xl bg-blue-500 text-white">
-          <button onClick={(e) => handleLogout(e)}>
+          <button className="rounded-xl opacity-90 hover:opacity-100 transition-opacity duration-150 ease-in-out active:bg-blue-600 active:text-white" onClick={(e) => handleLogout(e)}>
             <label className="mx-auto text-center font-semibold">Log out</label>
           </button>
         </li>

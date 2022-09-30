@@ -16,7 +16,7 @@ export const MessageForm = ({ handleSubmit, text, setText }) => {
           />
           <button
             type="submit"
-            className="mt-2 rounded-full bg-blue-500 px-2 py-2 text-center align-middle text-white opacity-90 transition-opacity hover:opacity-100"
+            className="mt-2 rounded-full bg-blue-500 px-2 py-2 text-center align-middle text-white opacity-90 hover:opacity-100 active:bg-blue-600 transition-opacity duration-150 ease-in-out"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
