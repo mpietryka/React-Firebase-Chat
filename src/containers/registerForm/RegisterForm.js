@@ -5,17 +5,29 @@ import { Datepicker } from "../datepicker/Datepicker";
 import * as Yup from "yup";
 import swal from "sweetalert";
 import { useNavigate, Link } from "react-router-dom";
+import { db } from "../../firebase-config";
+import { useState, useEffect } from "react";
+import { getDocs, doc, setDoc, collection } from "firebase/firestore";
 import {
   Heading,
-  ShadowBox,
   Btn,
   MainContainer,
-  Centered,
   Semibold,
+  FormBox,
 } from "../../components";
 
 export const RegisterForm = () => {
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "users");
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+  }, []);
 
   const validate = Yup.object({
     firstName: Yup.string()
@@ -44,69 +56,75 @@ export const RegisterForm = () => {
         return birthdate <= cutoff;
       }),
   });
+
   const handleSubmit = (values) => {
-    const username = values.username;
-    if (localStorage.getItem(JSON.stringify(username))) {
+    const findByUsername = users.find(
+      (item) => item.username === values.username
+    );
+
+    if (findByUsername) {
       swal(
         "Looks like this username is already in use",
         "Try another one",
         "warning"
       );
     } else {
-      localStorage.setItem(JSON.stringify(username), JSON.stringify(values));
-      console.log("onSubmit", values);
+      //new object with formik values
+      const newUser = JSON.parse(JSON.stringify(values));
+      //add to firestore
+      setDoc(doc(db, "users", values.username), newUser);
+      users.push(values);
       navigate("/");
     }
   };
 
   return (
-    <Centered>
+    <MainContainer>
       <Heading>REGISTER</Heading>
-      <MainContainer>
-        <ShadowBox>
-          <Formik
-            initialValues={{
-              firstName: "",
-              lastName: "",
-              username: "",
-              DOB: "",
-              email: "",
-              password: "",
-              confirmPassword: "",
-            }}
-            validationSchema={validate}
-            onSubmit={(values) => {
-              handleSubmit(values);
-            }}
-          >
-            <Form>
-              <Textfield label="First Name" name="firstName" type="text" />
-              <Textfield label="Last Name" name="lastName" type="text" />
-              <Textfield label="Username" name="username" type="text" />
-              <Datepicker label="Date of Birth" name="DOB" type="date" />
-              <Textfield label="Email" name="email" type="email" />
-              <Textfield label="Password" name="password" type="password" />
-              <Textfield
-                label="Confirm Password"
-                name="confirmPassword"
-                type="password"
-              />
-              <Btn type="submit">
-                <Semibold>REGISTER</Semibold>
-              </Btn>
-              <p className=" mt-5 flex justify-between font-light">
-                Already have an account?
-                <Link
-                  to="/"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
-                >
-                  Log in
-                </Link>
-              </p>
-            </Form>
-          </Formik>
-        </ShadowBox>
-      </MainContainer>
-    </Centered>
+      <FormBox>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            username: "",
+            DOB: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            profilePicture: "",
+          }}
+          validationSchema={validate}
+          onSubmit={(values) => {
+            handleSubmit(values);
+          }}
+        >
+          <Form>
+            <Textfield label="First Name" name="firstName" type="text" />
+            <Textfield label="Last Name" name="lastName" type="text" />
+            <Textfield label="Username" name="username" type="text" />
+            <Datepicker label="Date of Birth" name="DOB" type="date" />
+            <Textfield label="Email" name="email" type="email" />
+            <Textfield label="Password" name="password" type="password" />
+            <Textfield
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+            />
+            <Btn className="bg-blue-500" type="submit">
+              <Semibold>REGISTER</Semibold>
+            </Btn>
+            <p className=" mt-5 flex justify-between font-light">
+              Already have an account?
+              <Link
+                to="/"
+                className="font-bold text-blue-500 opacity-90 transition-opacity hover:opacity-100"
+              >
+                Log in
+              </Link>
+            </p>
+          </Form>
+        </Formik>
+      </FormBox>
+    </MainContainer>
   );
 };

@@ -1,0 +1,36 @@
+import React, { useRef, useEffect } from "react";
+import Moment from "react-moment";
+
+export const Message = ({ msg, user1 }) => {
+  const scrollRef = useRef();
+
+  {
+    /* scroll down to the latest message */
+  }
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
+  }, [msg]);
+
+  return (
+    <div
+      className={`mb-6 p-3   ${
+        msg.from === user1 ? `text-right` : `text-left`
+      }`}
+      ref={scrollRef}
+    >
+      <p
+        className={`border-1 inline-block max-w-md rounded-xl border border-gray-300 px-3 py-2 text-left  ${
+          msg.from === user1 ? `bg-blue-500` : `bg-base-200`
+        }`}
+      >
+        {msg.text}
+        <br />
+        <small className="inline-block text-left font-light">
+          {/* display how long ago the message was sent */}
+          <Moment fromNow>{msg.sentAt.toDate()}</Moment>
+        </small>
+      </p>
+    </div>
+  );
+};

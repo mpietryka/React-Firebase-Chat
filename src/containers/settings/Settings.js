@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { NavBarItem, Btn, Semibold } from "../../components";
+import { NavBarItem, Semibold, Btn } from "../../components";
 import { logout } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import swal from "sweetalert";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import swal from "sweetalert";
+import { Update } from "../../actions/update";
 import { Textfield } from "../textfield/Textfield";
 import { NavBar } from "../navBar/Navbar";
-import { Update } from "../../actions/update";
 import { DrawerContent } from "../drawerContent/DrawerContent";
 import {
   updateDoc,
@@ -19,10 +19,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
-export const ChangePassword = () => {
+export const Settings = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
   const userRef = doc(db, "users", user.username);
@@ -36,46 +37,44 @@ export const ChangePassword = () => {
   }, []);
 
   const handleSubmit = (values) => {
-    if (values.oldPassword !== user.password) {
-      swal("Ooops!", "This is not your old password try again", "warning");
-    } else {
-      const tempUsers = users.map((obj) => {
-        if (obj.username === user.username) {
-          return {
-            ...obj,
-            password: values.password,
-            confirmPassword: values.confirmPassword,
-          };
-        }
-        return obj;
+    const tempUsers = users.map((obj) => {
+      if (obj.username === user.username) {
+        return {
+          ...obj,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+        };
+      }
+      return obj;
+    });
+
+    const updateDetails = async () => {
+      await updateDoc(userRef, {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
       });
+    };
+    updateDetails();
 
-      const updatePassword = async () => {
-        await updateDoc(userRef, {
-          password: values.password,
-          confirmPassword: values.confirmPassword,
-        });
-      };
-
-      updatePassword();
-      const currentUser = tempUsers.find(
-        (item) => item.username === user.username
-      );
-
-      dispatch(Update(currentUser));
-      swal("All done", "Your password is now changed", "success");
-      navigate("/dashboard");
-    }
+    //update Redux store
+    const currentUser = tempUsers.find(
+      (item) => item.username === user.username
+    );
+    dispatch(Update(currentUser));
+    swal("All done", "Your details were updated", "success");
+    navigate("/dashboard");
   };
 
   const validate = Yup.object({
-    oldPassword: Yup.string().required("Please enter your old password"),
-    password: Yup.string()
-      .min(6, "Must be at least 6 characters")
-      .required("Please enter your password"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Please confirm your password"),
+    firstName: Yup.string()
+      .max(15, "Must be 15 characters or less")
+      .required("Please enter your first name"),
+    lastName: Yup.string()
+      .max(20, "Must be 20 characters or less")
+      .required("Please enter your last name"),
+    email: Yup.string().email("This is not a valid email address"),
   });
 
   const handleDelete = () => {
@@ -96,7 +95,6 @@ export const ChangePassword = () => {
         );
 
         deleteDoc(doc(db, "users", user.username));
-
         dispatch(logout());
         navigate("/");
       } else {
@@ -108,20 +106,20 @@ export const ChangePassword = () => {
   return (
     <>
       {/* Drawer */}
-      <div className="drawer drawer-mobile">
+      <div className="drawer-mobile drawer">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col bg-base-100">
           <NavBar title="Settings" />
           {/* main content */}
           {/* settings navigation */}
           <div className="flex w-full flex-col items-center bg-base-100 lg:flex-row lg:justify-between">
-            <NavBarItem>
+            <NavBarItem className="text-blue-500">
               <Link to="/settings">Update profile</Link>
             </NavBarItem>
             <NavBarItem>
               <Link to="/updateProfilePicture">Update profile picture</Link>
             </NavBarItem>
-            <NavBarItem className="text-blue-500">
+            <NavBarItem>
               <Link to="/changePassword"> Change your password </Link>
             </NavBarItem>
             <NavBarItem>
@@ -134,9 +132,9 @@ export const ChangePassword = () => {
           <div className="card mx-auto mt-0 w-3/4 border border-gray-200 bg-base-100 p-4 shadow-xl md:mt-5 lg:w-1/2">
             <Formik
               initialValues={{
-                oldPassword: "",
-                password: "",
-                confirmPassword: "",
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
               }}
               validationSchema={validate}
               onSubmit={(values) => {
@@ -144,17 +142,10 @@ export const ChangePassword = () => {
               }}
             >
               <Form>
-                <Textfield
-                  label="Old Password"
-                  name="oldPassword"
-                  type="password"
-                />
-                <Textfield label="Password" name="password" type="password" />
-                <Textfield
-                  label="Confirm Password"
-                  name="confirmPassword"
-                  type="password"
-                />
+                <Textfield label="First Name" name="firstName" type="text" />
+                <Textfield label="Last Name" name="lastName" type="text" />
+                <Textfield label="Email" name="email" type="email" />
+
                 <Btn className="bg-blue-500" type="submit">
                   <Semibold>Submit</Semibold>
                 </Btn>

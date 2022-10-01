@@ -6,16 +6,20 @@ import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Heading,
-  ShadowBox,
+  FormBox,
   Btn,
   MainContainer,
-  Centered,
   Semibold,
 } from "../../components";
 import { useDispatch } from "react-redux";
 import { Login } from "../../actions/auth";
+import { useState, useEffect } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 export const LoginForm = () => {
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "users");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,17 +28,20 @@ export const LoginForm = () => {
     password: Yup.string().required("Please enter your password"),
   });
 
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+  }, []);
+
   const handleSubmit = (values) => {
-    const user = JSON.parse(
-      localStorage.getItem(JSON.stringify(values.username))
-    );
-    if(!user){
-      swal(
-        "Oops! the user doesn't exist",
-        "Try again",
-        "error"
-      );
-    }else if (values.password !== user.password) {
+    const user = users.find((item) => item.username === values.username);
+
+    if (!user) {
+      swal("Oops! the user doesn't exist", "Try again", "error");
+    } else if (values.password !== user.password) {
       swal(
         "Oops! You have entered an incorrect password",
         "Try again",
@@ -47,10 +54,10 @@ export const LoginForm = () => {
   };
 
   return (
-    <Centered>
-      <Heading>LOG IN TO YOUR ACCOUNT</Heading>
+    <div className="flex h-screen w-full items-center">
       <MainContainer>
-        <ShadowBox>
+        <Heading>LOG IN TO YOUR ACCOUNT</Heading>
+        <FormBox>
           <Formik
             initialValues={{
               username: "",
@@ -65,7 +72,7 @@ export const LoginForm = () => {
             <Form>
               <Textfield label="Username" name="username" type="text" />
               <Textfield label="Password" name="password" type="password" />
-              <Btn type="submit">
+              <Btn className="bg-blue-500" type="submit">
                 <Semibold>SIGN-IN</Semibold>
               </Btn>
 
@@ -73,15 +80,15 @@ export const LoginForm = () => {
                 Don't have an account?
                 <Link
                   to="/register"
-                  className="text-blue-500 font-bold opacity-90 hover:opacity-100 transition-opacity"
+                  className="font-bold text-blue-500 opacity-90 transition-opacity hover:opacity-100"
                 >
                   Register
                 </Link>
               </p>
             </Form>
           </Formik>
-        </ShadowBox>
+        </FormBox>
       </MainContainer>
-    </Centered>
+    </div>
   );
 };
