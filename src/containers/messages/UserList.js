@@ -56,7 +56,7 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
         {/* display last message, trim if too long */}
         {data && (
           <span className="mx-3 w-3/4 overflow-hidden truncate text-xs text-gray-900">
-            <strong>{data.from === user1 ? "Me: " : null}</strong>
+            <strong>{data.from === user1 ? "Me: " : "Them: "}</strong>
             {data.text}
           </span>
         )}
