@@ -30,6 +30,7 @@ export const Messages = () => {
 
   useEffect(() => {
     const usersRef = collection(db, "users");
+
     //find all users apart from the logged in user
     const q = query(
       usersRef,
@@ -56,14 +57,18 @@ export const Messages = () => {
     const msgRef = collection(db, "messages", id, "chat");
     const q = query(msgRef, orderBy("sentAt", "asc"));
 
+    //retrieve chat messages in real time
     onSnapshot(q, (querySnapshot) => {
       let msgs = [];
+      //populate the temporary msgs array with the data from the database
       querySnapshot.forEach((doc) => {
         msgs.push(doc.data());
       });
+      //assign temporary array to the main msgs state
       setMsgs(msgs);
     });
 
+    //retrieve the last message
     const docSnap = await getDoc(doc(db, "lastMsg", id));
     if (docSnap.data() && docSnap.data().from !== currentUser) {
       await updateDoc(doc(db, "lastMsg", id), { unread: false });
@@ -75,8 +80,10 @@ export const Messages = () => {
     const user1 = currentUser.username;
     const user2 = chat.username;
 
+    //id of the chat, both usernames combined
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
+    //add new entry to the database, colelction "messages", subcollection "chat"
     if (text !== "") {
       await addDoc(collection(db, "messages", id, "chat"), {
         text,
@@ -87,6 +94,7 @@ export const Messages = () => {
       setText("");
     }
 
+    //set last message, overwrite the old last message with the new one
     await setDoc(doc(db, "lastMsg", id), {
       text,
       from: user1,
@@ -105,9 +113,10 @@ export const Messages = () => {
           <NavBar title="Messages" />
           {/* UserList Section */}
           <div className="relative flex flex-grow">
-            <div className="md:grid w-full md:grid-cols-4">
+            <div className="w-full md:grid md:grid-cols-4">
               <div className="border-1 md:col-span-1 md:h-full md:border-r">
-                <div className="flex flex-row md:flex-col sticky top-16">
+                <div className="sticky top-16 flex flex-row md:flex-col">
+                  {/* display the list of users */}
                   {users.map((user) => (
                     <UserList
                       key={user.username}
@@ -120,23 +129,27 @@ export const Messages = () => {
                 </div>
               </div>
               {/* Chat Section */}
-              <div className="md:col-span-3 bg-base-100 pb-8">
+              <div className="bg-base-100 pb-8 md:col-span-3">
                 <div className="h-full">
+                  {/* if user selected */}
                   {chat ? (
                     <div className="sticky top-16 z-50 h-20 w-full bg-gray-100 p-6">
                       <p className="text-left text-xl font-semibold">
+                        {/* display the user we're currently chatting with */}
                         {chat.firstName} {chat.lastName}
                       </p>
                     </div>
                   ) : (
                     <div className="sticky top-16 z-50 h-20 w-full bg-gray-100 p-6">
                       <p className="text-center text-xl font-semibold">
+                        {/* if not display a default */}
                         Select a User
                       </p>
                     </div>
                   )}
-                  
+
                   <div>
+                    {/* display the list of messages */}
                     {msgs.length
                       ? msgs.map((msg, i) => (
                           <Message
@@ -148,11 +161,12 @@ export const Messages = () => {
                       : null}
                   </div>
                   <div className="fixed bottom-0 my-4 mx-8 w-10/12 md:w-6/12">
+                    {/* display text input field */}
                     <MessageForm
                       handleSubmit={handleSubmit}
                       text={text}
                       setText={setText}
-                      />
+                    />
                   </div>
                 </div>
               </div>

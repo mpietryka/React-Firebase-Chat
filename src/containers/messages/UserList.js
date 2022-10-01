@@ -11,7 +11,13 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
   const [data, setData] = useState("");
 
   useEffect(() => {
+    {
+      /* chat id is the usernames of the users combined */
+    }
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+    {
+      /* get last message in real time */
+    }
     let unsub = onSnapshot(doc(db, "lastMsg", id), (doc) => {
       setData(doc.data());
     });
@@ -20,11 +26,12 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
 
   return (
     <div
-      className={`flex md:w-full cursor-pointer flex-row p-2 hover:bg-base-200 ${
+      className={`flex cursor-pointer flex-row p-2 hover:bg-base-200 md:w-full ${
         chat.username === user.username && `bg-base-200`
       }`}
       onClick={() => selectUser(user)}
     >
+      {/* display Avatar */}
       <label tabIndex="0" className="avatar btn-circle">
         <div className="w-15 mask mask-circle rounded-full">
           {!user.profilePicture ? (
@@ -37,14 +44,16 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
       </label>
       <div className="hidden md:flex md:flex-col">
         <span className="mx-3 text-left font-bold">
+          {/* display name */}
           {user.firstName} {user.lastName}
+          {/* if last message comes from somebody else and has unread set to true display a NEW badge next to it */}
           {data?.from !== user1 && data?.unread && (
             <span className=" badge badge-primary badge-sm ml-1 align-middle">
               NEW
             </span>
           )}
         </span>
-
+        {/* display last message, trim if too long */}
         {data && (
           <span className="mx-3 w-3/4 overflow-hidden truncate text-xs text-gray-900">
             <strong>{data.from === user1 ? "Me: " : null}</strong>

@@ -4,6 +4,10 @@ import Moment from "react-moment";
 export const Message = ({ msg, user1 }) => {
   const scrollRef = useRef();
 
+  {
+    /* scroll down to the latest message */
+  }
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, [msg]);
@@ -23,6 +27,7 @@ export const Message = ({ msg, user1 }) => {
         {msg.text}
         <br />
         <small className="inline-block text-left font-light">
+          {/* display how long ago the message was sent */}
           <Moment fromNow>{msg.sentAt.toDate()}</Moment>
         </small>
       </p>

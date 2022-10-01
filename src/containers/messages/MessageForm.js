@@ -3,9 +3,10 @@ import React from "react";
 export const MessageForm = ({ handleSubmit, text, setText }) => {
   return (
     <div>
-      {/*text area */}
+      {/*handle submit comes from Messages.js */}
       <form onSubmit={handleSubmit}>
-        <div className="sticky botton-0 z-50 flex w-full flex-row">
+        <div className="botton-0 sticky z-50 flex w-full flex-row">
+          {/*text input */}
           <input
             type="text"
             value={text}
@@ -16,7 +17,7 @@ export const MessageForm = ({ handleSubmit, text, setText }) => {
           />
           <button
             type="submit"
-            className="mt-2 rounded-full bg-blue-500 px-2 py-2 text-center align-middle text-white opacity-90 hover:opacity-100 active:bg-blue-600 transition-opacity duration-150 ease-in-out"
+            className="mt-2 rounded-full bg-blue-500 px-2 py-2 text-center align-middle text-white opacity-90 transition-opacity duration-150 ease-in-out hover:opacity-100 active:bg-blue-600"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
