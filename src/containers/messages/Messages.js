@@ -54,7 +54,7 @@ export const Messages = () => {
 
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
-    const msgRef = collection(db, "messages", id, "chat");
+    const msgRef = collection(db, "conversations", id, "messages");
     const q = query(msgRef, orderBy("sentAt", "asc"));
 
     //retrieve chat messages in real time
@@ -83,9 +83,9 @@ export const Messages = () => {
     //id of the chat, both usernames combined
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
-    //add new entry to the database, colelction "messages", subcollection "chat"
+    //add new entry to the database, colelction "conversations", subcollection "messages"
     if (text !== "") {
-      await addDoc(collection(db, "messages", id, "chat"), {
+      await addDoc(collection(db, "conversations", id, "messages"), {
         text,
         from: user1,
         to: user2,
