@@ -5,23 +5,10 @@ import { Avatar } from "../../components/avatar/Avatar";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
-export const UserList = ({ user, selectUser, currentUser, chat }) => {
+export const UserListDropdown = ({ user, selectUser, currentUser, chat }) => {
   const user2 = user.username;
   const user1 = currentUser;
   const [data, setData] = useState("");
-
-  /* 
-  get last message in real time 
-  chat id is the usernames of the users combined
-  */
-  useEffect(() => {
-    const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
-
-    let unsub = onSnapshot(doc(db, "lastMsg", id), (doc) => {
-      setData(doc.data());
-    });
-    return () => unsub();
-  }, []);
 
   return (
     <div
@@ -42,23 +29,10 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
         </div>
       </label>
       <div className="hidden md:flex md:flex-col">
-        <span className="mx-3 text-left font-bold">
+        <span className="mx-3 text-left text-base">
           {/* display name */}
           {user.firstName} {user.lastName}
-          {/* if last message comes from somebody else and has unread set to true display a NEW badge next to it */}
-          {data?.from !== user1 && data?.unread && (
-            <span className=" badge badge-primary badge-sm ml-1 align-middle">
-              NEW
-            </span>
-          )}
         </span>
-        {/* display last message, trim if too long */}
-        {data && (
-          <span className="mx-3 w-3/4 overflow-hidden truncate text-xs text-gray-900">
-            <strong>{data.from === user1 ? "Me: " : "Them: "}</strong>
-            {data.text ? data.text : "attachment"}
-          </span>
-        )}
       </div>
     </div>
   );

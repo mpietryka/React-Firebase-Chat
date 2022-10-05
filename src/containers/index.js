@@ -8,6 +8,7 @@ export { RegisterForm } from "./registerForm/RegisterForm";
 export { Messages } from "./messages/Messages";
 export { MessageForm } from "./messages/MessageForm";
 export { UserList } from "./messages/UserList";
+export { UserListDropdown } from "./messages/UserListDropdown";
 export { Settings } from "./settings/Settings";
 export { NavBar } from "./navBar/Navbar";
 export { DrawerContent } from "./drawerContent/DrawerContent";
