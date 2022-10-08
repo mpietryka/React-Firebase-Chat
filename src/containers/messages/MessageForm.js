@@ -1,15 +1,15 @@
 import React from "react";
 import { Attachment } from "./Attachment";
+import { Recorder } from "./Recorder";
 
 export const MessageForm = ({
   handleSubmit,
   text,
   setText,
-  attachment,
   setAttachment,
+  attachment,
   onChangeHandler,
 }) => {
-
   const removeAttachment = () => {
     setAttachment("");
   };
@@ -26,8 +26,15 @@ export const MessageForm = ({
     <div>
       {/*handle submit comes from Messages.js */}
       <form onSubmit={handleSubmit}>
-        <div className="botton-0 sticky z-50 flex w-full flex-row h-14 ">
+        <div className="botton-0 sticky z-50 flex h-14 w-full flex-row ">
           {/* add attachment input button */}
+          <div className="flex flex-row">
+            <Recorder
+              attachment={attachment}
+              setAttachment={setAttachment}
+              attachmentName={attachmentName}
+            />
+          </div>
           <div>
             <label htmlFor="attachment">
               <Attachment

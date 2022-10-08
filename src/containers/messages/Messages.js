@@ -160,10 +160,14 @@ export const Messages = () => {
           <div className="relative flex flex-grow">
             <div className="w-full md:grid md:grid-cols-4">
               <div className="border-1 md:col-span-1 md:h-full md:border-r">
-                {/* Extra div allowing to start new convo */}
+                {/**  
+                 
+                  //  Extra div allowing to start new convo 
                 <div className="hidden h-20 w-full bg-gray-100 px-6 py-4 text-left align-middle text-xl font-semibold md:flex md:flex-row md:justify-between">
                   <div className=" pt-3">Conversations</div>
-                  {/* dropdown menu with the list of users */}
+
+                  //  dropdown menu with the list of users 
+
                   <div className="dropdown dropdown-end dropdown-hover ">
                     <label tabIndex={0} className="btn btn-ghost">
                       <svg
@@ -195,8 +199,10 @@ export const Messages = () => {
                         />
                       ))}
                     </ul>
+                    
                   </div>
                 </div>
+              */}
                 <div className="sticky top-16 flex flex-row md:flex-col">
                   {/* display the list of users */}
                   {users.map((user) => (

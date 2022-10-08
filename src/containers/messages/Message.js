@@ -17,6 +17,8 @@ export const Message = ({ msg, user1 }) => {
       return <img src={msg.media} alt="attachment" />;
     } else if (ext === "mp4") {
       return <video src={msg.media} width="750" height="500" controls></video>;
+    } else if (ext === "wav") {
+      return <audio src={msg.media} controls></audio>;
     }
   };
 
@@ -39,6 +41,7 @@ export const Message = ({ msg, user1 }) => {
       >
         {checkExt()}
         {msg.text ? <span>{msg.text}</span> : null}
+
         <br />
         <small className="inline-block text-left font-light">
           {/* display how long ago the message was sent */}
