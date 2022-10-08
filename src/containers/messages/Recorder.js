@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect } from "react";
 
 import { useAudioRecorder } from "lucas-silbernagel-react-audio-recorder";
 
@@ -7,23 +7,30 @@ export const Recorder = ({ attachment, setAttachment }) => {
     useAudioRecorder();
 
   useEffect(() => {
+    //startRecording()
     console.log(attachment)
-  })
+  },[attachment])
   
-  async function getBlobBack(blobUrl) {
-    const blob = await fetch(blobUrl).then((res) => res.blob());
-    console.log(audioResult)
-    console.log("blob: " + blob.data)
-    let wavfromblob = new File([blob], "audioMsg", { type: "audio/wav" });
-    console.log(wavfromblob);
-    await setAttachment(wavfromblob);
+
+  const getBlobBack = async (blobUrl) => {
+    const BlobUrl = await fetch(blobUrl)
+    //.then((res) => res.blob())
+    const blob = await BlobUrl.blob()
+
+    let name = blobUrl.slice(-6)
+    let filename = name + ".wav"
+    console.log("filename: " + filename)
+    let wavfromblob = new File([blob], filename, { type: "audio/wav" });
+    console.log("converted to wav: " + wavfromblob.name);
+    setAttachment(wavfromblob);
   }
 
-    const stop = async () => {
+  const stop = async () => {
     stopRecording();
-    console.log(audioResult)
-    await setAttachment(getBlobBack(audioResult))
+    setAttachment(getBlobBack(audioResult))
   };
+
+
 
   return (
     <div className=" flex flex-row">
