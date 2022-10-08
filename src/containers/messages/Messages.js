@@ -204,6 +204,7 @@ export const Messages = () => {
                         ))
                       : null}
                   </div>
+                    {chat ? 
                   <div className="fixed bottom-0 my-4 mx-8 w-10/12 md:w-6/12">
                     {/* display text input field */}
                     <MessageForm
@@ -213,8 +214,9 @@ export const Messages = () => {
                       setAttachment={setAttachment}
                       onChangeHandler={onChangeHandler}
                       attachment={attachment}
-                    />
+                      />
                   </div>
+                    : null }
                 </div>
               </div>
             </div>
