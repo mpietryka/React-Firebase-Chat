@@ -4,7 +4,6 @@ import { NavBar } from "../navBar/Navbar";
 import { DrawerContent } from "../drawerContent/DrawerContent";
 import { useSelector } from "react-redux";
 import { UserList } from "./UserList";
-import { UserListDropdown } from "./UserListDropdown";
 import { MessageForm } from "./MessageForm";
 import { Message } from "./Message";
 import {
@@ -160,49 +159,6 @@ export const Messages = () => {
           <div className="relative flex flex-grow">
             <div className="w-full md:grid md:grid-cols-4">
               <div className="border-1 md:col-span-1 md:h-full md:border-r">
-                {/**  
-                 
-                  //  Extra div allowing to start new convo 
-                <div className="hidden h-20 w-full bg-gray-100 px-6 py-4 text-left align-middle text-xl font-semibold md:flex md:flex-row md:justify-between">
-                  <div className=" pt-3">Conversations</div>
-
-                  //  dropdown menu with the list of users 
-
-                  <div className="dropdown dropdown-end dropdown-hover ">
-                    <label tabIndex={0} className="btn btn-ghost">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="h-6 w-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                        />
-                      </svg>
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
-                    >
-                      {users.map((user) => (
-                        <UserListDropdown
-                          key={user.username}
-                          user={user}
-                          selectUser={selectUser}
-                          currentUser={currentUser.username}
-                          chat={chat}
-                        />
-                      ))}
-                    </ul>
-                    
-                  </div>
-                </div>
-              */}
                 <div className="sticky top-16 flex flex-row md:flex-col">
                   {/* display the list of users */}
                   {users.map((user) => (

@@ -7,11 +7,9 @@ export const Recorder = ({ attachment, setAttachment }) => {
     useAudioRecorder();
 
   useEffect(() => {
-    //startRecording()
     console.log(attachment)
   },[attachment])
   
-
   const getBlobBack = async (blobUrl) => {
     const BlobUrl = await fetch(blobUrl)
     //.then((res) => res.blob())
