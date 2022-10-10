@@ -1,43 +1,50 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import { useAudioRecorder } from "lucas-silbernagel-react-audio-recorder";
 
 export const Recorder = ({ attachment, setAttachment }) => {
-  const { audioResult, startRecording, stopRecording, status } =
-    useAudioRecorder();
+  const { audioResult, startRecording, stopRecording, status } = useAudioRecorder();
+  const [isRecording, setIsRecording ] = useState(false);
+  const [hasStoppedRecording, setHasStoppedRecording] = useState(false);
 
   useEffect(() => {
-    console.log(attachment)
-  },[attachment])
-  
-  const getBlobBack = async (blobUrl) => {
-    const BlobUrl = await fetch(blobUrl)
-    //.then((res) => res.blob())
-    const blob = await BlobUrl.blob()
+      setAttachment(getBlobBack(audioResult))
+  }, [isRecording, audioResult, hasStoppedRecording])
 
-    let name = blobUrl.slice(-6)
-    let filename = name + ".wav"
-    console.log("filename: " + filename)
-    let wavfromblob = new File([blob], filename, { type: "audio/wav" });
-    console.log("converted to wav: " + wavfromblob.name);
-    setAttachment(wavfromblob);
+  const getBlobBack = async (blobUrl) => {
+    try {
+      if(!blobUrl) {
+        throw new Error("Empty url, please try again")
+      }
+      const BlobUrl = await fetch(blobUrl)
+      const blob = await BlobUrl.blob()
+      let name = blobUrl.slice(-6)  
+      const filename = name + ".wav"
+      const wavfromblob = new File([blob], filename, { type: "audio/wav" });
+      setAttachment(wavfromblob);
+    }
+    catch (err) {
+      return err;
+    }
   }
 
   const stop = async () => {
     stopRecording();
-    setAttachment(getBlobBack(audioResult))
+    setIsRecording(false);
+    setHasStoppedRecording(true)
   };
 
-
+  const recording = () => {
+    setIsRecording(true)
+    startRecording()
+  }
 
   return (
     <div className=" flex flex-row">
-      <audio controls src={audioResult} />
       <div>
         {status === "idle" ? (
           <div
             className="mt-2 mr-2 cursor-pointer rounded-full bg-gray-500 px-2 py-2 text-center align-middle text-white opacity-90 transition-opacity duration-150 ease-in-out hover:opacity-100"
-            onClick={startRecording}
+            onClick={recording}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
