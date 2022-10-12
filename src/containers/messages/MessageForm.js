@@ -16,7 +16,10 @@ export const MessageForm = ({
 
   const attachmentName = () => {
     if (attachment) {
-      return attachment.name;
+      if (attachment.name === undefined){
+      return "no attachments"}
+      else{
+      return attachment.name;}
     } else {
       return "no attachments";
     }

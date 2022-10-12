@@ -7,7 +7,9 @@ export const Recorder = ({ attachment, setAttachment }) => {
   const [hasStoppedRecording, setHasStoppedRecording] = useState(false);
 
   useEffect(() => {
+      hasStoppedRecording ?
       setAttachment(getBlobBack(audioResult))
+      : setAttachment("")
   }, [isRecording, audioResult, hasStoppedRecording])
 
   const getBlobBack = async (blobUrl) => {
