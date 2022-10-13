@@ -2,43 +2,43 @@ import React, { useEffect, useState } from "react";
 import { useAudioRecorder } from "lucas-silbernagel-react-audio-recorder";
 
 export const Recorder = ({ attachment, setAttachment }) => {
-  const { audioResult, startRecording, stopRecording, status } = useAudioRecorder();
-  const [isRecording, setIsRecording ] = useState(false);
+  const { audioResult, startRecording, stopRecording, status } =
+    useAudioRecorder();
+  const [isRecording, setIsRecording] = useState(false);
   const [hasStoppedRecording, setHasStoppedRecording] = useState(false);
 
   useEffect(() => {
-      hasStoppedRecording ?
-      setAttachment(getBlobBack(audioResult))
-      : setAttachment("")
-  }, [isRecording, audioResult, hasStoppedRecording])
+    hasStoppedRecording
+      ? setAttachment(getBlobFromURl(audioResult))
+      : setAttachment("");
+  }, [isRecording, audioResult, hasStoppedRecording]);
 
-  const getBlobBack = async (blobUrl) => {
+  const getBlobFromURl = async (blobUrl) => {
     try {
-      if(!blobUrl) {
-        throw new Error("Empty url, please try again")
+      if (!blobUrl) {
+        throw new Error("Empty url, please try again");
       }
-      const BlobUrl = await fetch(blobUrl)
-      const blob = await BlobUrl.blob()
-      let name = blobUrl.slice(-6)  
-      const filename = name + ".wav"
+      const BlobUrl = await fetch(blobUrl);
+      const blob = await BlobUrl.blob();
+      let name = blobUrl.slice(-6);
+      const filename = name + ".wav";
       const wavfromblob = new File([blob], filename, { type: "audio/wav" });
       setAttachment(wavfromblob);
-    }
-    catch (err) {
+    } catch (err) {
       return err;
     }
-  }
+  };
 
   const stop = async () => {
     stopRecording();
     setIsRecording(false);
-    setHasStoppedRecording(true)
+    setHasStoppedRecording(true);
   };
 
   const recording = () => {
-    setIsRecording(true)
-    startRecording()
-  }
+    setIsRecording(true);
+    startRecording();
+  };
 
   return (
     <div className=" flex flex-row">

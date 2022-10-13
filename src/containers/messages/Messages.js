@@ -124,13 +124,20 @@ export const Messages = () => {
 
     //add new entry to the database, collection "conversations", subcollection "messages"
     if (text !== "" || attachment !== "") {
-      await addDoc(collection(db, "conversations", id, "messages"), {
-        text,
-        from: user1,
-        to: user2,
-        sentAt: Timestamp.fromDate(new Date()),
-        mediaName: attachmentName(),
-        media: url || "",
+      const newDocRef = await addDoc(
+        collection(db, "conversations", id, "messages"),
+        {
+          uid: "",
+          text,
+          from: user1,
+          to: user2,
+          sentAt: Timestamp.fromDate(new Date()),
+          mediaName: attachmentName(),
+          media: url || "",
+        }
+      );
+      await updateDoc(newDocRef, {
+        uid: newDocRef.id,
       });
     }
 
@@ -204,19 +211,19 @@ export const Messages = () => {
                         ))
                       : null}
                   </div>
-                    {chat ? 
-                  <div className="fixed bottom-0 my-4 mx-8 w-10/12 md:w-6/12">
-                    {/* display text input field */}
-                    <MessageForm
-                      handleSubmit={handleSubmit}
-                      text={text}
-                      setText={setText}
-                      setAttachment={setAttachment}
-                      onChangeHandler={onChangeHandler}
-                      attachment={attachment}
+                  {chat ? (
+                    <div className="fixed bottom-0 my-4 mx-8 w-10/12 md:w-6/12">
+                      {/* display text input field */}
+                      <MessageForm
+                        handleSubmit={handleSubmit}
+                        text={text}
+                        setText={setText}
+                        setAttachment={setAttachment}
+                        onChangeHandler={onChangeHandler}
+                        attachment={attachment}
                       />
-                  </div>
-                    : null }
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>
