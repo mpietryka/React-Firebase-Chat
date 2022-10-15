@@ -1,6 +1,7 @@
 import React from "react";
 import { Attachment } from "./Attachment";
 import { Recorder } from "./Recorder";
+import InputEmoji from 'react-input-emoji'
 
 export const MessageForm = ({
   handleSubmit,
@@ -80,6 +81,14 @@ export const MessageForm = ({
             </div>
           </div>
           {/*text input */}
+          <InputEmoji
+          value={text}
+          onChange={setText}
+          cleanOnEnter
+          placeholder="message"
+        />
+
+          {/*  Original input field 
           <input
             type="text"
             value={text}
@@ -87,10 +96,10 @@ export const MessageForm = ({
             className="mt-2 mr-2 mb-1 h-5 w-full rounded-md border border-gray-400 px-3 py-5 align-middle transition
           ease-in-out hover:outline-none focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="message"
-          />
+          /> */}
           <button
             type="submit"
-            className="mt-2 rounded-full bg-blue-500 px-3 py-2 text-center align-middle text-white opacity-90 transition-opacity duration-150 ease-in-out hover:opacity-100 active:bg-blue-600"
+            className="my-1 rounded-full bg-blue-500 px-3 py-2 text-center align-middle text-white opacity-90 transition-opacity duration-150 ease-in-out hover:opacity-100 active:bg-blue-600"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

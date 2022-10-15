@@ -15,7 +15,7 @@ export const Message = ({ msg, user1 }) => {
     const chatId = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
     const msgID = msg.uid;
     const msgRef = doc(db, "conversations", chatId, "messages", msgID);
-
+    
     await updateDoc(msgRef, {
       text: "deleted",
       media: "",
@@ -71,7 +71,7 @@ export const Message = ({ msg, user1 }) => {
         }`}
         ref={scrollRef}
       >
-        <p
+        <div
           className={`border-1 inline-block max-w-md rounded-xl border border-gray-300 px-3 py-2 text-left text-white ${
             msg.from === user1 ? `bg-blue-500` : `bg-base-200 text-right`
           }`}
@@ -99,7 +99,7 @@ export const Message = ({ msg, user1 }) => {
             {/* display how long ago the message was sent */}
             <Moment fromNow>{msg.sentAt.toDate()}</Moment>
           </small>
-        </p>
+        </div>
       </div>
     </div>
   );
