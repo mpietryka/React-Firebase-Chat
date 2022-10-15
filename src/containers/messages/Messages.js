@@ -19,13 +19,16 @@ import {
   onSnapshot,
   Timestamp,
 } from "firebase/firestore";
-import { db } from "../../firebase-config";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { storage, db } from "../../firebase-config";
+import swal from "sweetalert";
 
 export const Messages = () => {
   const currentUser = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
+  const [attachment, setAttachment] = useState("");
   const [msgs, setMsgs] = useState([]);
 
   useEffect(() => {
@@ -54,7 +57,7 @@ export const Messages = () => {
 
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
-    const msgRef = collection(db, "messages", id, "chat");
+    const msgRef = collection(db, "conversations", id, "messages");
     const q = query(msgRef, orderBy("sentAt", "asc"));
 
     //retrieve chat messages in real time
@@ -75,23 +78,71 @@ export const Messages = () => {
     }
   };
 
+  //check the file size, no more than 5mb
+  const onChangeHandler = (event) => {
+    let fileSize = event.target.files[0].size;
+    if (fileSize > 5242880) {
+      swal(
+        "Your file is too big! The limit is 5mb",
+        "Select a smaller file and try again",
+        "warning"
+      );
+    } else {
+      attachment !== "" ?
+      setAttachment(event.target.files[0])
+      :setAttachment("")
+      ;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //check if attachment exists, if it does return its name, if not return empty string.
+    const attachmentName = () => {
+      if (attachment) {
+        return attachment.name;
+      } else {
+        return "";
+      }
+    };
+
     const user1 = currentUser.username;
     const user2 = chat.username;
 
     //id of the chat, both usernames combined
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
 
-    //add new entry to the database, colelction "messages", subcollection "chat"
-    if (text !== "") {
-      await addDoc(collection(db, "messages", id, "chat"), {
-        text,
-        from: user1,
-        to: user2,
-        sentAt: Timestamp.fromDate(new Date()),
+    //send the attachment to the storage
+    let url;
+    if (attachment !== "") {
+      const attachmentRef = ref(
+        storage,
+        `attachments/${new Date().getTime()} - ${attachment.name}`
+      );
+      const snap = await uploadBytes(attachmentRef, attachment);
+      const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
+      url = dlUrl;
+    }
+
+    //add new entry to the database, collection "conversations", subcollection "messages"
+    if (text !== "" || attachment !== "") {
+      const newDocRef = await addDoc(
+        collection(db, "conversations", id, "messages"),
+        {
+          uid: "",
+          text,
+          from: user1,
+          to: user2,
+          sentAt: Timestamp.fromDate(new Date()),
+          mediaName: attachmentName(),
+          media: url || "",
+        }
+      );
+      await updateDoc(newDocRef, {
+        uid: newDocRef.id,
       });
-      setText("");
+      console.log(attachment)
     }
 
     //set last message, overwrite the old last message with the new one
@@ -99,9 +150,13 @@ export const Messages = () => {
       text,
       from: user1,
       to: user2,
-      sentAt: Timestamp.fromDate(new Date()),
+      createdAt: Timestamp.fromDate(new Date()),
+      media: url || "",
+      mediaName: attachmentName(),
       unread: true,
     });
+    setText("");
+    setAttachment("");
   };
 
   return (
@@ -141,7 +196,7 @@ export const Messages = () => {
                     </div>
                   ) : (
                     <div className="sticky top-16 z-50 h-20 w-full bg-gray-100 p-6">
-                      <p className="text-center text-xl font-semibold">
+                      <p className="text-left text-xl font-semibold">
                         {/* if not display a default */}
                         Select a User
                       </p>
@@ -160,14 +215,19 @@ export const Messages = () => {
                         ))
                       : null}
                   </div>
-                  <div className="fixed bottom-0 my-4 mx-8 w-10/12 md:w-6/12">
-                    {/* display text input field */}
-                    <MessageForm
-                      handleSubmit={handleSubmit}
-                      text={text}
-                      setText={setText}
-                    />
-                  </div>
+                  {chat ? (
+                    <div className="fixed bottom-0 my-4 mx-8 w-10/12 md:w-6/12">
+                      {/* display text input field */}
+                      <MessageForm
+                        handleSubmit={handleSubmit}
+                        text={text}
+                        setText={setText}
+                        setAttachment={setAttachment}
+                        onChangeHandler={onChangeHandler}
+                        attachment={attachment}
+                      />
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>

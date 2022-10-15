@@ -10,14 +10,13 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
   const user1 = currentUser;
   const [data, setData] = useState("");
 
+  /* 
+  get last message in real time 
+  chat id is the usernames of the users combined
+  */
   useEffect(() => {
-    {
-      /* chat id is the usernames of the users combined */
-    }
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
-    {
-      /* get last message in real time */
-    }
+
     let unsub = onSnapshot(doc(db, "lastMsg", id), (doc) => {
       setData(doc.data());
     });
@@ -26,8 +25,8 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
 
   return (
     <div
-      className={`flex cursor-pointer flex-row p-2 hover:bg-base-200 md:w-full ${
-        chat.username === user.username && `bg-base-200`
+      className={`flex cursor-pointer flex-row p-2 hover:bg-gray-200 md:w-full ${
+        chat.username === user.username && `bg-gray-100`
       }`}
       onClick={() => selectUser(user)}
     >
@@ -56,8 +55,8 @@ export const UserList = ({ user, selectUser, currentUser, chat }) => {
         {/* display last message, trim if too long */}
         {data && (
           <span className="mx-3 w-3/4 overflow-hidden truncate text-xs text-gray-900">
-            <strong>{data.from === user1 ? "Me: " : null}</strong>
-            {data.text}
+            <strong>{data.from === user1 ? "Me: " : "Them: "}</strong>
+            {data.text ? data.text : "attachment"}
           </span>
         )}
       </div>
