@@ -88,10 +88,9 @@ export const Messages = () => {
         "warning"
       );
     } else {
-      attachment !== "" ?
-      setAttachment(event.target.files[0])
-      :setAttachment("")
-      ;
+      attachment !== ""
+        ? setAttachment(event.target.files[0])
+        : setAttachment("");
     }
   };
 
@@ -142,7 +141,7 @@ export const Messages = () => {
       await updateDoc(newDocRef, {
         uid: newDocRef.id,
       });
-      console.log(attachment)
+      console.log(attachment);
     }
 
     //set last message, overwrite the old last message with the new one

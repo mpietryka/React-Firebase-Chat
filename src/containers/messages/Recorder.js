@@ -8,7 +8,7 @@ export const Recorder = ({ attachment, setAttachment }) => {
   const [hasStoppedRecording, setHasStoppedRecording] = useState(false);
 
   useEffect(() => {
-    console.log(attachment)
+    console.log(attachment);
     hasStoppedRecording
       ? setAttachment(getBlobFromURl(audioResult))
       : setAttachment("");

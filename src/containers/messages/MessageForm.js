@@ -1,7 +1,7 @@
 import React from "react";
 import { Attachment } from "./Attachment";
 import { Recorder } from "./Recorder";
-import InputEmoji from 'react-input-emoji'
+import InputEmoji from "react-input-emoji";
 
 export const MessageForm = ({
   handleSubmit,
@@ -82,11 +82,11 @@ export const MessageForm = ({
           </div>
           {/*text input */}
           <InputEmoji
-          value={text}
-          onChange={setText}
-          cleanOnEnter
-          placeholder="message"
-        />
+            value={text}
+            onChange={setText}
+            cleanOnEnter
+            placeholder="message"
+          />
 
           {/*  Original input field 
           <input

@@ -15,7 +15,7 @@ export const Message = ({ msg, user1 }) => {
     const chatId = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
     const msgID = msg.uid;
     const msgRef = doc(db, "conversations", chatId, "messages", msgID);
-    
+
     await updateDoc(msgRef, {
       text: "deleted",
       media: "",
@@ -37,7 +37,9 @@ export const Message = ({ msg, user1 }) => {
     if (msg.text === "") {
       return null;
     } else if (msg.text === "deleted") {
-      return <span className="text-sm text-gray-300 float-right">{msg.text} </span>;
+      return (
+        <span className="float-right text-sm text-gray-300">{msg.text} </span>
+      );
     } else {
       return <span>{msg.text}</span>;
     }
@@ -83,7 +85,7 @@ export const Message = ({ msg, user1 }) => {
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu rounded-box w-40 bg-base-100 shadow text-black"
+                className="dropdown-content menu rounded-box w-40 bg-base-100 text-black shadow"
               >
                 <li>
                   <button onClick={deleteMsg}>Delete Message</button>
